@@ -25,9 +25,9 @@ namespace LogAndReg.Controllers
         {
             var message = "";
             bool status = false;
-            using (UserDBEntities1 db = new UserDBEntities1())
+            using (UserDBEntities3 db = new UserDBEntities3())
             {
-                var v = db.tblUses.Where(a => a.Email == login.Email).FirstOrDefault();
+                var v = db.Uses.Where(a => a.Email == login.Email).FirstOrDefault();
                 if (v != null)
                 {
                     if (string.Compare(Crypto.Hash(login.Password), v.Password) == 0)
@@ -78,10 +78,10 @@ namespace LogAndReg.Controllers
             bool status = false;
 
 
-            using (UserDBEntities1 db = new UserDBEntities1())
+            using (UserDBEntities3 db = new UserDBEntities3())
             {
 
-                var v = db.tblUses.Where(a => a.Email == forgot.Email).FirstOrDefault();
+                var v = db.Uses.Where(a => a.Email == forgot.Email).FirstOrDefault();
                 if (v != null)
                 {
                     if (string.Compare(forgot.NewPassword, forgot.ConfirmPassword) == 0)
@@ -114,7 +114,9 @@ namespace LogAndReg.Controllers
         }
 
 
-   
+       
+
+
         [HttpGet]
         public ActionResult Registration()
         {
@@ -125,7 +127,7 @@ namespace LogAndReg.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")] tblUse tblUse)
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]Use use )
         {
             bool Status = false;
             string message = "";
@@ -133,29 +135,33 @@ namespace LogAndReg.Controllers
             //Model Validation
             if (ModelState.IsValid)
             {
-                
-                
                 //Email already exist
-                var IsExist = IsEmailExist(tblUse.Email);
+
+
+
+                var IsExist = IsEmailExist(use.Email);
                 if (IsExist)
                 {
                     ModelState.AddModelError("EmailExist", "Email already Exist");
-                    return View(tblUse);
+                    return View(use);
                 }
 
                 //Activation code
-                tblUse.ActivationCode = Guid.NewGuid();
+                use.ActivationCode = Guid.NewGuid();
 
                 //Password hash
-                tblUse.Password = Crypto.Hash(tblUse.Password);
+                use.Password = Crypto.Hash(use.Password);
 
-                tblUse.IsEmailVerified = true;
+                use.IsEmailVerified = true;
 
                 //save data in db
-                using (UserDBEntities1 db = new UserDBEntities1())
+                using (UserDBEntities3 db = new UserDBEntities3())
                 {
-                    db.tblUses.Add(tblUse);
+                    db.Uses.Add(use);
                     db.SaveChanges();
+
+
+
                 }
                 Status = true;
                 message = "Registration Completed";
@@ -168,7 +174,7 @@ namespace LogAndReg.Controllers
             ViewBag.Message = message;
             ViewBag.Status = Status;
 
-            return View(tblUse);
+            return View(use);
         }
 
 
@@ -176,9 +182,9 @@ namespace LogAndReg.Controllers
         [NonAction]
         public bool IsEmailExist(string Email)
         {
-            using (UserDBEntities1 db = new UserDBEntities1())
+            using (UserDBEntities3 db = new UserDBEntities3())
             {
-                var v = db.tblUses.Where(a => a.Email == Email).FirstOrDefault();
+                var v = db.Uses.Where(a => a.Email == Email).FirstOrDefault();
                 return v != null;
             }
 

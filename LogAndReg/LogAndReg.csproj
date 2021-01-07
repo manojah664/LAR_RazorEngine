@@ -249,7 +249,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Extended\tblUse.cs" />
+    <Compile Include="Models\Extended\Use.cs" />
     <Compile Include="Models\Forgot.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\MyModel.Context.cs">
@@ -267,7 +267,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MyModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\tblUse.cs">
+    <Compile Include="Models\Use.cs">
       <DependentUpon>MyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

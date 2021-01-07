@@ -13,10 +13,10 @@ namespace LogAndReg.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UserDBEntities1 : DbContext
+    public partial class UserDBEntities3 : DbContext
     {
-        public UserDBEntities1()
-            : base("name=UserDBEntities1")
+        public UserDBEntities3()
+            : base("name=UserDBEntities3")
         {
         }
     
@@ -25,6 +25,6 @@ namespace LogAndReg.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblUse> tblUses { get; set; }
+        public virtual DbSet<Use> Uses { get; set; }
     }
 }
