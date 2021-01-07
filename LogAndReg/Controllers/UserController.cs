@@ -114,9 +114,7 @@ namespace LogAndReg.Controllers
         }
 
 
-       
-
-
+   
         [HttpGet]
         public ActionResult Registration()
         {
@@ -135,10 +133,9 @@ namespace LogAndReg.Controllers
             //Model Validation
             if (ModelState.IsValid)
             {
+                
+                
                 //Email already exist
-
-
-
                 var IsExist = IsEmailExist(tblUse.Email);
                 if (IsExist)
                 {
@@ -159,9 +156,6 @@ namespace LogAndReg.Controllers
                 {
                     db.tblUses.Add(tblUse);
                     db.SaveChanges();
-
-
-
                 }
                 Status = true;
                 message = "Registration Completed";
