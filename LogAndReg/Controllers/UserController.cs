@@ -12,6 +12,7 @@ namespace LogAndReg.Controllers
 {
     public class UserController : Controller
     {
+      
         // Get: User Registration
         [HttpGet]
         public ActionResult Login()
@@ -25,7 +26,7 @@ namespace LogAndReg.Controllers
         {
             var message = "";
             bool status = false;
-            using (UserDBEntities4 db = new UserDBEntities4())
+            using (UserDbEntities db = new UserDbEntities())
             {
                 var v = db.Uses.Where(a => a.Email == login.Email).FirstOrDefault();
                 if (v != null)
@@ -58,6 +59,7 @@ namespace LogAndReg.Controllers
             ViewBag.status = status;
             return View();
         }
+        
 
         public ActionResult Logout()
         {
@@ -78,7 +80,7 @@ namespace LogAndReg.Controllers
             bool status = false;
 
 
-            using (UserDBEntities4 db = new UserDBEntities4())
+            using (UserDbEntities db = new UserDbEntities())
             {
 
                 var v = db.Uses.Where(a => a.Email == forgot.Email).FirstOrDefault();
@@ -120,14 +122,20 @@ namespace LogAndReg.Controllers
         [HttpGet]
         public ActionResult Registration()
         {
-            return View();
+            UserViewModel use = new UserViewModel();
+            using (UserDbEntities db = new UserDbEntities())
+            {
+             
+                use.CountryList = db.Countries.Select(e => new SelectListItem { Text = e.Cname.ToString(), Value = e.Countryid.ToString() }).ToList();
+            }
+            return View(use);
 
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]Use use )
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]UserMetaData use )
         {
             bool Status = false;
             string message = "";
@@ -154,13 +162,20 @@ namespace LogAndReg.Controllers
 
                 use.IsEmailVerified = true;
 
+              
+
                 //save data in db
-                using (UserDBEntities4 db = new UserDBEntities4())
+                using (UserDbEntities db = new UserDbEntities())
                 {
-                    db.Uses.Add(use);
+
+                    var Country = db.Countries.ToList();
+
+                    var CountryList = new SelectList(db.Countries, "CountryId", "Cname");
+                    
+
+
+                   // db.Add(use);
                     db.SaveChanges();
-
-
 
                 }
                 Status = true;
@@ -182,7 +197,7 @@ namespace LogAndReg.Controllers
         [NonAction]
         public bool IsEmailExist(string Email)
         {
-            using (UserDBEntities4 db = new UserDBEntities4())
+            using (UserDbEntities db = new UserDbEntities())
             {
                 var v = db.Uses.Where(a => a.Email == Email).FirstOrDefault();
                 return v != null;

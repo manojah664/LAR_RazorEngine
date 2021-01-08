@@ -106,15 +106,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Models\MyModel.Context.tt">
+    <Content Include="Models\UserDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyModel.edmx</DependentUpon>
-      <LastGenOutput>MyModel.Context.cs</LastGenOutput>
+      <DependentUpon>UserDb.edmx</DependentUpon>
+      <LastGenOutput>UserDb.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MyModel.tt">
+    <Content Include="Models\UserDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyModel.edmx</DependentUpon>
-      <LastGenOutput>MyModel.cs</LastGenOutput>
+      <DependentUpon>UserDb.edmx</DependentUpon>
+      <LastGenOutput>UserDb.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -139,12 +139,12 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <EntityDeploy Include="Models\MyModel.edmx">
+    <EntityDeploy Include="Models\UserDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MyModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>UserDb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MyModel.edmx.diagram">
-      <DependentUpon>MyModel.edmx</DependentUpon>
+    <Content Include="Models\UserDb.edmx.diagram">
+      <DependentUpon>UserDb.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
@@ -249,27 +249,31 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Country.cs">
+      <DependentUpon>UserDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Extended\Use.cs" />
     <Compile Include="Models\Forgot.cs" />
     <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\MyModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MyModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MyModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Use.cs">
-      <DependentUpon>MyModel.tt</DependentUpon>
+      <DependentUpon>UserDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
