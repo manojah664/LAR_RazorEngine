@@ -27,12 +27,25 @@ namespace LogAndReg.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
-       // [RegularExpression("^[a-zA-Z0-9]{8,}$")]
+       //[RegularExpression("^[a-zA-Z0-9]{8,}$")]
         [MinLength(6,ErrorMessage ="Minimum 6 Characters Required")]
         public string Password { get; set; }
 
+        [Display(Name = "Date Of Birth")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Enter the Date Of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Mobile Number")]
+        [Required(AllowEmptyStrings = false)]
+        [RegularExpression("^[6-9]{1}[0-9]{9}$")]
+        public string MobileNumber { get; set; }
+        public string Gender { get; set; }
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
+
+
 
 
 

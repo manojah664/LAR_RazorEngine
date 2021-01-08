@@ -25,7 +25,7 @@ namespace LogAndReg.Controllers
         {
             var message = "";
             bool status = false;
-            using (UserDBEntities3 db = new UserDBEntities3())
+            using (UserDBEntities4 db = new UserDBEntities4())
             {
                 var v = db.Uses.Where(a => a.Email == login.Email).FirstOrDefault();
                 if (v != null)
@@ -78,7 +78,7 @@ namespace LogAndReg.Controllers
             bool status = false;
 
 
-            using (UserDBEntities3 db = new UserDBEntities3())
+            using (UserDBEntities4 db = new UserDBEntities4())
             {
 
                 var v = db.Uses.Where(a => a.Email == forgot.Email).FirstOrDefault();
@@ -155,7 +155,7 @@ namespace LogAndReg.Controllers
                 use.IsEmailVerified = true;
 
                 //save data in db
-                using (UserDBEntities3 db = new UserDBEntities3())
+                using (UserDBEntities4 db = new UserDBEntities4())
                 {
                     db.Uses.Add(use);
                     db.SaveChanges();
@@ -182,7 +182,7 @@ namespace LogAndReg.Controllers
         [NonAction]
         public bool IsEmailExist(string Email)
         {
-            using (UserDBEntities3 db = new UserDBEntities3())
+            using (UserDBEntities4 db = new UserDBEntities4())
             {
                 var v = db.Uses.Where(a => a.Email == Email).FirstOrDefault();
                 return v != null;

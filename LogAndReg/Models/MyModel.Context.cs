@@ -13,10 +13,10 @@ namespace LogAndReg.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UserDBEntities3 : DbContext
+    public partial class UserDBEntities4 : DbContext
     {
-        public UserDBEntities3()
-            : base("name=UserDBEntities3")
+        public UserDBEntities4()
+            : base("name=UserDBEntities4")
         {
         }
     
