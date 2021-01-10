@@ -204,6 +204,7 @@ namespace LogAndReg.Controllers
             }
 
         }
+
         [HttpGet]
         public JsonResult GetStateName(int? Countryid)
         {
