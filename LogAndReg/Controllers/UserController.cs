@@ -135,7 +135,7 @@ namespace LogAndReg.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]UserMetaData use )
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]Use use )
         {
             bool Status = false;
             string message = "";
@@ -174,7 +174,7 @@ namespace LogAndReg.Controllers
                     
 
 
-                   // db.Add(use);
+                    db.Uses.Add(use);
                     db.SaveChanges();
 
                 }
@@ -203,6 +203,13 @@ namespace LogAndReg.Controllers
                 return v != null;
             }
 
+        }
+        [HttpGet]
+        public JsonResult GetStateName(int? Countryid)
+        {
+            UserDbEntities db = new UserDbEntities();
+            var result = db.States.Where(e => e.Countryid == Countryid.ToString()).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString() }).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 

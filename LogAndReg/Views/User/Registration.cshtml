@@ -5,7 +5,7 @@
 
 <h2>Registration</h2>
 
-h2>Registration</h2>
+
 
 @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
 {
@@ -101,10 +101,10 @@ else
                 </label>
             </div>
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Countryid, Model.CountryList, "<--Select-->", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Countryid, Model.CountryList, "<--Select Countries-->", new { @class = "form-control", @id = "Countryid" })
 
             </div>
-
+            <br/>
 
 
             <div class="form-group">
@@ -123,8 +123,28 @@ else
 
 @section Scripts
 {
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $('#Countryid').change(function () {
+            debugger;
+            alert($('#Countryid').val());
+            var data = $('#Countryid').val();
+            $.ajax({
+                type: "get",
+                Countryid: data,
+                url: "/User/GetStateName",
+                success: function (result) {
+                    //For existing user
+                    
+                    //    alert(result);
+                }
+
+            });
+        });
+
+    </script>
 }
 
 @*<div class="form-group">

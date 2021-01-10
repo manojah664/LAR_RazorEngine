@@ -5,12 +5,28 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UserDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cityname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Countryid" />
           </Key>
           <Property Name="Countryid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Countryid" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Use">
           <Key>
@@ -31,7 +47,9 @@
           <Property Name="CityId" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="UserDBModelStoreContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Use" EntityType="Self.Use" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -48,6 +66,8 @@
         <EntityContainer Name="UserDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="Uses" EntityType="UserDBModel.Use" />
+          <EntitySet Name="Cities" EntityType="UserDBModel.City" />
+          <EntitySet Name="States" EntityType="UserDBModel.State" />
         </EntityContainer>
         <EntityType Name="Use">
           <Key>
@@ -66,6 +86,22 @@
           <Property Name="Countryid" Type="Int32" Nullable="false" />
           <Property Name="StateId" Type="Int32" Nullable="false" />
           <Property Name="CityId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cityname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Countryid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -97,6 +133,24 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="UserDBModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Cityname" ColumnName="Cityname" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="UserDBModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Countryid" ColumnName="Countryid" />
+                <ScalarProperty Name="Sname" ColumnName="Sname" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

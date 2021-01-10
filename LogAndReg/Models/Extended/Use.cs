@@ -7,6 +7,11 @@ using System.Web.Mvc;
 
 namespace LogAndReg.Models
 {
+    [MetadataType(typeof(UserMetaData))]
+    public partial class Use
+    {
+
+    }
     public class UserMetaData
     {
         [Display(Name = "User Name")]
