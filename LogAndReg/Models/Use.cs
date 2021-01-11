@@ -12,7 +12,7 @@ namespace LogAndReg.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Use
+    public  partial class Use
     {
         public int Uid { get; set; }
         public string Username { get; set; }

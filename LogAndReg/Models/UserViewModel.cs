@@ -40,6 +40,7 @@ namespace LogAndReg.Models
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
 
+       // public IEnumerable<SelectListItem> Countryid { get; set; }
         public int Countryid { get; set; }
 
         public int StateId { get; set; }

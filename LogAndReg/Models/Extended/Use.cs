@@ -48,7 +48,7 @@ namespace LogAndReg.Models
 
         public List<SelectListItem> CountryList { get; set; }
 
-     //   public List<string> lsttest { get; set; }
+    
 
     }
 }

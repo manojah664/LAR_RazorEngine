@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -135,61 +136,90 @@ namespace LogAndReg.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]Use use )
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]UserViewModel userViewModel )
         {
             bool Status = false;
             string message = "";
 
             //Model Validation
-            if (ModelState.IsValid)
+            try
             {
-                //Email already exist
-
-
-
-                var IsExist = IsEmailExist(use.Email);
-                if (IsExist)
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("EmailExist", "Email already Exist");
-                    return View(use);
+                    //Email already exist
+
+
+
+                    var IsExist = IsEmailExist(userViewModel.Email);
+                    if (IsExist)
+                    {
+                        ModelState.AddModelError("EmailExist", "Email already Exist");
+                        return View(userViewModel);
+                    }
+
+                    //Activation code
+                    userViewModel.ActivationCode = Guid.NewGuid();
+
+                    //Password hash
+                    userViewModel.Password = Crypto.Hash(userViewModel.Password);
+
+                    userViewModel.IsEmailVerified = true;
+
+
+
+                    //save data in db
+                    using (UserDbEntities db = new UserDbEntities())
+                    {
+
+                        //var Country = db.Countries.ToList();
+
+                        //var CountryList = new SelectList(db.Countries, "CountryId", "Cname");
+
+                        Use use = new Use();
+                        use.Countryid = userViewModel.Countryid;
+                        use.Address = userViewModel.Address;
+                        use.ActivationCode = userViewModel.ActivationCode;
+                        use.Email = userViewModel.Email;
+                        use.DateOfBirth = userViewModel.DateOfBirth;
+                        use.Gender = userViewModel.Gender;
+                        use.IsEmailVerified = userViewModel.IsEmailVerified;
+                        use.Password = userViewModel.Password;
+                        use.StateId = userViewModel.StateId;
+                        use.MobileNumber = userViewModel.MobileNumber;
+                        use.Username = userViewModel.Username;
+
+
+                        db.Uses.Add(use);
+                        db.SaveChanges();
+
+                    }
+                    Status = true;
+                    message = "Registration Completed";
+
                 }
-
-                //Activation code
-                use.ActivationCode = Guid.NewGuid();
-
-                //Password hash
-                use.Password = Crypto.Hash(use.Password);
-
-                use.IsEmailVerified = true;
-
-              
-
-                //save data in db
-                using (UserDbEntities db = new UserDbEntities())
+                else
                 {
-
-                    var Country = db.Countries.ToList();
-
-                    var CountryList = new SelectList(db.Countries, "CountryId", "Cname");
-                    
-
-
-                    db.Uses.Add(use);
-                    db.SaveChanges();
-
+                    message = "Invalid Request";
                 }
-                Status = true;
-                message = "Registration Completed";
-
+                ViewBag.Message = message;
+                ViewBag.Status = Status;
             }
-            else
+            catch (DbEntityValidationException e)
             {
-                message = "Invalid Request";
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
-            ViewBag.Message = message;
-            ViewBag.Status = Status;
 
-            return View(use);
+            return View(userViewModel);
         }
 
 
@@ -212,6 +242,19 @@ namespace LogAndReg.Controllers
             var result = db.States.Where(e => e.Countryid == Countryid).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString()}).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
+
+
+        //[HttpGet]
+        //public JsonResult GetCityName(int? StateId)
+        //{
+        //    UserDbEntities db = new UserDbEntities();
+        //    var result = db.Cities.Where(e => e.StateId == StateId).Select(e => new SelectListItem { Text = e.Cityname, Value = e.CityId.ToString() }).ToList();
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
 
 
     }
