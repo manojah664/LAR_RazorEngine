@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="75827fede33b4213b867f2cb7db4c823" Name="Diagram1">
-        <EntityTypeShape EntityType="UserDBModel.Country" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDBModel.Country" Width="1.5" PointX="5.5" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="UserDBModel.Use" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="UserDBModel.City" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="UserDBModel.State" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="UserDBModel.City" Width="1.5" PointX="1.125" PointY="2.625" />
+        <EntityTypeShape EntityType="UserDBModel.State" Width="1.5" PointX="7.75" PointY="1.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

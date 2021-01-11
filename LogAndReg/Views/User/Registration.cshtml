@@ -102,11 +102,8 @@ else
             </div>
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Countryid, Model.CountryList, "<--Select Countries-->", new { @class = "form-control", @id = "Countryid" })
-
             </div>
             <br/>
-
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Submit" class="btn btn-info btn-default" />
@@ -130,10 +127,11 @@ else
         $('#Countryid').change(function () {
             debugger;
             alert($('#Countryid').val());
-            var data = $('#Countryid').val();
+            var Countryid = $('#Countryid').val();
             $.ajax({
                 type: "get",
-                Countryid: data,
+                data: { Countryid: Countryid },
+                dataType: 'json',
                 url: "/User/GetStateName",
                 success: function (result) {
                     //For existing user

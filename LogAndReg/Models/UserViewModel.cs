@@ -42,6 +42,10 @@ namespace LogAndReg.Models
 
         public int Countryid { get; set; }
 
+        public int StateId { get; set; }
+
+        public int CityId { get; set; }
+
         public List<SelectListItem> CountryList { get; set; }
     }
 }

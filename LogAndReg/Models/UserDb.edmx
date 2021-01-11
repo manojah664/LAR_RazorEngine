@@ -26,7 +26,7 @@
           </Key>
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sname" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Countryid" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Countryid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Use">
           <Key>
@@ -101,7 +101,7 @@
           </Key>
           <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Countryid" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Countryid" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

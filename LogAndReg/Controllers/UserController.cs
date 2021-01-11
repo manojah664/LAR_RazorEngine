@@ -126,7 +126,7 @@ namespace LogAndReg.Controllers
             using (UserDbEntities db = new UserDbEntities())
             {
              
-                use.CountryList = db.Countries.Select(e => new SelectListItem { Text = e.Cname.ToString(), Value = e.Countryid.ToString() }).ToList();
+                use.CountryList = db.Countries.Select(e => new SelectListItem { Text = e.Cname.ToString(), Value = e.Countryid.ToString()}).ToList();
             }
             return View(use);
 
@@ -209,7 +209,7 @@ namespace LogAndReg.Controllers
         public JsonResult GetStateName(int? Countryid)
         {
             UserDbEntities db = new UserDbEntities();
-            var result = db.States.Where(e => e.Countryid == Countryid.ToString()).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString() }).ToList();
+            var result = db.States.Where(e => e.Countryid == Countryid).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString()}).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

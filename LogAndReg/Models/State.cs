@@ -16,6 +16,6 @@ namespace LogAndReg.Models
     {
         public int StateId { get; set; }
         public string Sname { get; set; }
-        public string Countryid { get; set; }
+        public int Countryid { get; set; }
     }
 }
