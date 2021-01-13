@@ -263,10 +263,38 @@ namespace LogAndReg.Controllers
         
         public ActionResult Edit(Use use)
         {
+            try
+            {
+                UserDbEntities db = new UserDbEntities();
+                db.Entry(use).State = System.Data.Entity.EntityState.Modified;
+                use.Password = Crypto.Hash(use.Password);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            return RedirectToAction("EditData");
+        }
+
+        public ActionResult Delete(int id)
+        {
             UserDbEntities db = new UserDbEntities();
-            db.Entry(use).State = System.Data.Entity.EntityState.Modified;
+            var model = db.Uses.Find(id);
+            db.Uses.Remove(model);
             db.SaveChanges();
             return RedirectToAction("EditData");
+
         }
 
         [NonAction]

@@ -24,9 +24,10 @@
                 webGrid.Column("DateOfBirth", "DateOfBirth"),
                   webGrid.Column("MobileNumber", "MobileNumber"),
                    webGrid.Column("Address", "Address"),
-                   webGrid.Column(header:"Edit",format:@<a href="/User/Edit/@item.Uid" class=" btn btn-success">Edit</a>)
+                   webGrid.Column(header:"Edit",format:@<a href="/User/Edit/@item.Uid" class=" btn btn-success">Edit</a>),
+                            webGrid.Column(header: "Delete", format:@<a href="/User/Delete/@item.Uid" class=" btn btn-danger">Delete</a>)
 
-                         ))
+                                          ))
 </div>
 
 <a href="/User/LogAndReg" class="btn btn-info">Cancel</a>
