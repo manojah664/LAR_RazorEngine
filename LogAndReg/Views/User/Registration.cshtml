@@ -82,8 +82,9 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    <div class="col-md-3">
                         @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control" } })
+                        
                         @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -150,7 +151,7 @@
         
             <div>
                 <a href="/User/Login" class="btn btn-info">Login</a>
-                <a href="/User/LogAndReg" class="btn btn-info">All User Data List</a>
+               
             </div>
     
 

@@ -1,10 +1,11 @@
-﻿@model LogAndReg.Models.Login
+﻿
+@model LogAndReg.Models.Login
 
 @{
     ViewBag.Title = "Login";
 }
 
-<h2>Admin Login</h2>
+<h2>User Login</h2>
 
 @if (ViewBag.status != null && Convert.ToBoolean(ViewBag.status))
 {
@@ -15,8 +16,7 @@
     <br />
     <br />
     <a href="/User/Logout" class=" btn btn-info">Logout</a>
-    <a href="/User/LogAndReg" class="btn btn-info">All User Data List</a>
-
+    <a href="/User/ViewDatas" class="btn btn-info">User View</a>
 </div>
     }
 }
@@ -26,11 +26,11 @@ else
 
     using (Html.BeginForm())
     {
-       if (ViewBag.Message != null)
+        if (ViewBag.Message != null)
         {
             <div class="alert alert-danger">
                 <strong>Error! </strong>@ViewBag.Message
-                
+
             </div>
         }
 
@@ -75,12 +75,9 @@ else
     }
 
 }
-        <div>
-            <a href="/User/Forgot" class="btn btn-info">Forgot</a>
-            <a href="/User/Registration" class="btn btn-info">Register Now</a>
-            @*@Html.ActionLink("Forgot", "Forgot", "User")
-            @Html.ActionLink("Register Now", "Registration", "User")*@
-        </div>
+           
+          
+
 
 @section Scripts
 {

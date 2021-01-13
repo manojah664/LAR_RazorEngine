@@ -61,6 +61,13 @@ namespace LogAndReg.Controllers
             return View();
         }
         
+        public ActionResult UserLogin()
+        {
+            return View();
+        }
+
+
+
 
         public ActionResult Logout()
         {
@@ -155,7 +162,7 @@ namespace LogAndReg.Controllers
                     {
                         ModelState.AddModelError("EmailExist", "Email already Exist");
                         return View("Valid");
-                        //return View(userViewModel);
+                       // return View(userViewModel);
                     }
 
 

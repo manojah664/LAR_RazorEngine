@@ -310,6 +310,7 @@
     <Content Include="Views\User\ViewDatas.cshtml" />
     <Content Include="Views\User\EditData.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\UserLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
