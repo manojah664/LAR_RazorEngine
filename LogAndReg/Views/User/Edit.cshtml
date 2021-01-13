@@ -1,0 +1,35 @@
+﻿@model LogAndReg.Models.Use
+
+@{
+    ViewBag.Title = "Edit";
+}
+@using (Html.BeginForm())
+{
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Edit Personal</h2>
+<div class="form-group">
+    UserId:@Html.TextBoxFor(x => x.Uid, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    UserId:@Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    UserId:@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    UserId:@Html.TextBoxFor(x => x.DateOfBirth, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    UserId:@Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    UserId:@Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    <button class="btn btn-success">Edit</button>
+</div>
+}
+
+
+
+

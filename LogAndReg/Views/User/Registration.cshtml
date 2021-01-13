@@ -11,9 +11,12 @@
     {
         if (ViewBag.Message != null)
         {
-            <div class="alert alert-success">
-                <strong>Success!</strong>@ViewBag.Message
-            </div>
+    <div class="alert alert-success">
+        <strong>Success!</strong>@ViewBag.Message
+        <br/>
+        <br/>
+        <a href="/User/Registration" class="btn btn-info">Cancel</a>
+    </div>
         }
 
     }
@@ -49,7 +52,7 @@
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        @Html.ValidationMessage("Emailexist", new { @class = "text-danger" })
+                        @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -109,6 +112,7 @@
                 </div>
                 <div class="col-md-10">
                     @Html.DropDownListFor(model => model.Countryid, Model.CountryList, "<--Select Countries-->", new { @class = "form-control", @id = "Countryid" })
+
                 </div>
                 <br />
 
@@ -122,7 +126,7 @@
                 </div>
                 <br />
 
-                @*<div class="form-group">
+                <div class="form-group">
                         <label class="control-label col-md-2">
                             Cities
                         </label>
@@ -130,7 +134,7 @@
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "<--Select Cities-->", new { @class = "form-control" })
                     </div>
-                    <br />*@
+                    <br />
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -141,10 +145,14 @@
             </div>
         }
     }
-
-    <div>
-        <a href="/User/Login">Login</a>
-    </div>
+            
+   
+        
+            <div>
+                <a href="/User/Login" class="btn btn-info">Login</a>
+                <a href="/User/LogAndReg" class="btn btn-info">All User Data List</a>
+            </div>
+    
 
     @section Scripts
 {
@@ -153,10 +161,43 @@
         <script src="~/Scripts/jquery.validate.min.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
         <script type="text/javascript">
-            $('#Countryid').change(function () {
+            $('#StateId').change(function () {
+                
                 debugger;
                 // alert($('#Countryid').val());
                 
+                var StateId = $('#StateId').val();
+                $.ajax({
+                    type: "get",
+                    data: { StateId: StateId },
+                    dataType: 'json',
+                    url: "/User/GetCityName",
+                    success: function (result) {
+                        debugger
+                        if (result != 0) {
+                            for (var i = 0; i <= result.length; i++) {
+                                $("#CityId").append("<option value='" + result[i].Value + "'>" + result[i].Text + "</option>");
+                            }
+                        }
+                        else {
+
+                            alert("error")
+
+                        }
+
+                        //For existing user
+
+                        //    alert(result);
+                    }
+
+                });
+            });
+
+
+            $('#Countryid').change(function () {
+                debugger;
+                // alert($('#Countryid').val());
+
                 var Countryid = $('#Countryid').val();
                 $.ajax({
                     type: "get",
@@ -183,26 +224,6 @@
 
                 });
             });
-
-                    //$('#StateId').change(function () {
-                    //    debugger;
-                    //    alert($('#StateId').val());
-                    //    var StateId = $('#StateId').val();
-                    //    $.ajax({
-                    //        type: "get",
-                    //        data: { StateId: StateId },
-                    //        dataType: 'json',
-                    //        url: "/User/GetCityName",
-                    //        success: function (result) {
-                    //            //For existing user
-
-                    //            //    alert(result);
-                    //        }
-
-                    //    });
-                    //});
-
-
         </script>
     }
 

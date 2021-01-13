@@ -154,8 +154,10 @@ namespace LogAndReg.Controllers
                     if (IsExist)
                     {
                         ModelState.AddModelError("EmailExist", "Email already Exist");
-                        return View(userViewModel);
+                        return View("Valid");
+                        //return View(userViewModel);
                     }
+
 
                     //Activation code
                     userViewModel.ActivationCode = Guid.NewGuid();
@@ -187,6 +189,7 @@ namespace LogAndReg.Controllers
                         use.StateId = userViewModel.StateId;
                         use.MobileNumber = userViewModel.MobileNumber;
                         use.Username = userViewModel.Username;
+                        use.CityId = userViewModel.CityId;
 
 
                         db.Uses.Add(use);
@@ -219,10 +222,52 @@ namespace LogAndReg.Controllers
                 throw;
             }
 
-            return View(userViewModel);
+            return View( );
+        }
+
+        public ActionResult Valid()
+        {
+            return View();
         }
 
 
+
+        public ActionResult LogAndReg()
+        {
+            UserDbEntities db = new UserDbEntities();
+            return View(db.Uses.ToList());
+
+        }
+
+        public ActionResult ViewDatas()
+        {
+            UserDbEntities db = new UserDbEntities();
+            return View(db.Uses.ToList());
+        }
+
+        public ActionResult EditData()
+        {
+
+            UserDbEntities db = new UserDbEntities();
+            return View(db.Uses.ToList());
+
+        }
+        [HttpGet]
+        public ActionResult Edit( int id)
+        {
+            UserDbEntities db = new UserDbEntities();
+            var model = db.Uses.Find(id);
+
+            return View(model);
+        }
+        
+        public ActionResult Edit(Use use)
+        {
+            UserDbEntities db = new UserDbEntities();
+            db.Entry(use).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("EditData");
+        }
 
         [NonAction]
         public bool IsEmailExist(string Email)
@@ -234,6 +279,7 @@ namespace LogAndReg.Controllers
             }
 
         }
+        
 
         [HttpGet]
         public JsonResult GetStateName(int? Countryid)
@@ -243,19 +289,17 @@ namespace LogAndReg.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        
+      
 
 
-
-
-
-        //[HttpGet]
-        //public JsonResult GetCityName(int? StateId)
-        //{
-        //    UserDbEntities db = new UserDbEntities();
-        //    var result = db.Cities.Where(e => e.StateId == StateId).Select(e => new SelectListItem { Text = e.Cityname, Value = e.CityId.ToString() }).ToList();
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-        //}
-
+        [HttpGet]
+        public JsonResult GetCityName(int? StateId)
+        {
+            UserDbEntities db = new UserDbEntities();
+            var result = db.Cities.Where(e => e.StateId == StateId).Select(e => new SelectListItem { Text = e.Cityname, Value = e.CityId.ToString() }).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

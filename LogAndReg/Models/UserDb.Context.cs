@@ -19,7 +19,8 @@ namespace LogAndReg.Models
             : base("name=UserDbEntities")
         {
         }
-    
+
+       
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

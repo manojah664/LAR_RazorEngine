@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LogAndReg.Models.Use>
+
+@{
+    ViewBag.Title = "LogAndReg";
+}
+
+<h2>Display Records In Webgrid</h2>
+@{
+    WebGrid webGrid = new WebGrid(source: Model, rowsPerPage: 10);
+
+}
+<link  href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="grid-table">
+@webGrid.GetHtml(
+    tableStyle:"table table-bordered table-striped",
+    htmlAttributes:new { @id="webGrid"},
+    columns:webGrid.Columns(
+        webGrid.Column("Uid","Uid"),
+         webGrid.Column("Username", "Username"),
+          webGrid.Column("Email", "Email"),
+           webGrid.Column("Password", "Password"),
+            webGrid.Column("DateOfBirth", "DateOfBirth"),
+             webGrid.Column("MobileNumber", "MobileNumber"),
+              webGrid.Column("Gender", "Gender"),
+               webGrid.Column("Address", "Address"),
+               webGrid.Column("ActivationCode", "ActivationCode"),
+                webGrid.Column("IsEmailVerified", "IsEmailVerified"),
+                 webGrid.Column("Countryid", "Countryid"),
+                  webGrid.Column("StateId", "StateId"),
+                   webGrid.Column("CityId", "CityId")
+
+))
+</div>
+<div>
+    <a href="/User/ViewDatas" class="btn btn-info">User View</a>
+    <a href="/User/EditData" class="btn btn-info">Edit View</a>
+    <a href="/User/Registration" class="btn btn-info">Cancel</a>
+</div>
+
+
+
+

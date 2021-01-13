@@ -10,10 +10,11 @@
 {
     if (ViewBag.Message != null)
     {
-<div class="alert alert-success">
+    <div class="alert alert-success">
     <strong>Success! </strong>@ViewBag.Message
     <br />
-    <a href="/User/Logout">Logout</a>
+    <br/>
+    <a href="/User/Logout" class=" btn btn-info">Logout</a>
 
 </div>
     }
@@ -74,8 +75,10 @@ else
 
 }
         <div>
-            @Html.ActionLink("Forgot","Forgot", "User")
-            @Html.ActionLink("Register Now", "Registration", "User")
+            <a href="/User/Forgot" class="btn btn-info">Forgot</a>
+            <a href="/User/Registration" class="btn btn-info">Register Now</a>
+            @*@Html.ActionLink("Forgot", "Forgot", "User")
+            @Html.ActionLink("Register Now", "Registration", "User")*@
         </div>
 
 @section Scripts
