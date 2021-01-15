@@ -13,7 +13,7 @@ namespace LogAndReg.Controllers
 {
     public class UserController : Controller
     {
-      
+
         // Get: User Registration
         [HttpGet]
         public ActionResult Login()
@@ -21,6 +21,7 @@ namespace LogAndReg.Controllers
             return View();
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login login)
@@ -60,11 +61,8 @@ namespace LogAndReg.Controllers
             ViewBag.status = status;
             return View();
         }
-        
-        public ActionResult UserLogin()
-        {
-            return View();
-        }
+
+
 
 
 
@@ -116,15 +114,15 @@ namespace LogAndReg.Controllers
 
             }
 
-                ViewBag.Message = message;
-                ViewBag.Status = status;
-                return View();
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            return View();
 
-            
+
         }
 
 
-       
+
 
 
         [HttpGet]
@@ -133,8 +131,8 @@ namespace LogAndReg.Controllers
             UserViewModel use = new UserViewModel();
             using (UserDbEntities db = new UserDbEntities())
             {
-             
-                use.CountryList = db.Countries.Select(e => new SelectListItem { Text = e.Cname.ToString(), Value = e.Countryid.ToString()}).ToList();
+
+                use.CountryList = db.Countries.Select(e => new SelectListItem { Text = e.Cname.ToString(), Value = e.Countryid.ToString() }).ToList();
             }
             return View(use);
 
@@ -143,7 +141,7 @@ namespace LogAndReg.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]UserViewModel userViewModel )
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified,ActivationCode")]UserViewModel userViewModel)
         {
             bool Status = false;
             string message = "";
@@ -162,7 +160,7 @@ namespace LogAndReg.Controllers
                     {
                         ModelState.AddModelError("EmailExist", "Email already Exist");
                         return View("Valid");
-                       // return View(userViewModel);
+                        // return View(userViewModel);
                     }
 
 
@@ -229,7 +227,7 @@ namespace LogAndReg.Controllers
                 throw;
             }
 
-            return View( );
+            return View();
         }
 
         public ActionResult Valid()
@@ -260,14 +258,14 @@ namespace LogAndReg.Controllers
 
         }
         [HttpGet]
-        public ActionResult Edit( int id)
+        public ActionResult Edit(int id)
         {
             UserDbEntities db = new UserDbEntities();
             var model = db.Uses.Find(id);
 
             return View(model);
         }
-        
+
         public ActionResult Edit(Use use)
         {
             try
@@ -304,6 +302,178 @@ namespace LogAndReg.Controllers
 
         }
 
+
+        public ActionResult AdminReg()
+        {
+            return View();
+        }
+
+        public ActionResult AdminLog()
+        {
+            return View();
+
+        }
+
+           [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminLog(Login login)
+        {
+            var message = "";
+            bool status = false;
+            using (UserDbEntities db = new UserDbEntities())
+            {
+                var v = db.Admins.Where(a => a.Email == login.Email).FirstOrDefault();
+                if (v != null)
+                {
+                    if (string.Compare(Crypto.Hash(login.Password), v.Password) == 0)
+                    {
+                        message = "Login Success";
+                        status = true;
+                    }
+                    else if (v.Password == "")
+                    {
+
+                        message = "Please enter a valid Password";
+                        status = true;
+
+                    }
+                    else
+                    {
+                        message = "Please enter a valid Password";
+                        status = false;
+                    }
+                }
+                else
+                {
+                    message = "Please enter a valid Email and Password";
+
+                }
+            }
+            ViewBag.Message = message;
+            ViewBag.status = status;
+            return View();
+        }
+
+        public ActionResult AdminLogout()
+        {
+            return RedirectToAction("AdminLog");
+        }
+
+        public ActionResult AdminForgot()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminForgot(Forgot forgot)
+        {
+
+            string message = "";
+            bool status = false;
+
+
+            using (UserDbEntities db = new UserDbEntities())
+            {
+
+                var v = db.Admins.Where(a => a.Email == forgot.Email).FirstOrDefault();
+                if (v != null)
+                {
+                    if (string.Compare(forgot.NewPassword, forgot.ConfirmPassword) == 0)
+                    {
+                        var m = Crypto.Hash(forgot.NewPassword);
+                        v.Password = m;
+                        db.SaveChanges();
+                        message = "Successfully Completed";
+                        status = true;
+                    }
+                    else
+                    {
+                        message = "enter a right password";
+                        status = false;
+                    }
+                }
+                else
+                {
+                    message = "email is invalid";
+                    status = false;
+                }
+
+            }
+
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminReg(AdminViewModel adminViewModel)
+        {
+
+            bool Status = false;
+            string message = "";
+
+            //Model Validation
+            try
+            {
+
+
+                if (ModelState.IsValid)
+                {
+                    //Email already exist
+
+
+
+                    var IsExist = IsAdminEmailExist(adminViewModel.Email);
+                    if (IsExist)
+                    {
+                        ModelState.AddModelError("EmailExist", "Email already Exist");
+                        return View("Valid");
+                        // return View(userViewModel);
+                    }
+
+                    adminViewModel.Password = Crypto.Hash(adminViewModel.Password);
+
+                    using (UserDbEntities db = new UserDbEntities())
+                    {
+                        Admin admin = new Admin();
+                        admin.Email = adminViewModel.Email;
+                        admin.Password = adminViewModel.Password;
+
+
+                        db.Admins.Add(admin);
+                        db.SaveChanges();
+                    }
+                    Status = true;
+                    message = "Registration Completed";
+
+                }
+                else
+                {
+                    message = "Invalid Request";
+                }
+                ViewBag.Message = message;
+                ViewBag.Status = Status;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            return View();
+        }
+
         [NonAction]
         public bool IsEmailExist(string Email)
         {
@@ -314,19 +484,25 @@ namespace LogAndReg.Controllers
             }
 
         }
-        
+
+        [NonAction]
+        public bool IsAdminEmailExist(string Email)
+        {
+            using (UserDbEntities db = new UserDbEntities())
+            {
+                var v = db.Admins.Where(a => a.Email == Email).FirstOrDefault();
+                return v != null;
+            }
+
+        }
 
         [HttpGet]
         public JsonResult GetStateName(int? Countryid)
         {
             UserDbEntities db = new UserDbEntities();
-            var result = db.States.Where(e => e.Countryid == Countryid).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString()}).ToList();
+            var result = db.States.Where(e => e.Countryid == Countryid).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString() }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-        
-      
-
 
         [HttpGet]
         public JsonResult GetCityName(int? StateId)

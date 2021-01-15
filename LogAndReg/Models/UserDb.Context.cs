@@ -19,16 +19,16 @@ namespace LogAndReg.Models
             : base("name=UserDbEntities")
         {
         }
-
-       
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Country> Countries { get; set; }
-        public virtual DbSet<Use> Uses { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Use> Uses { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
     }
 }

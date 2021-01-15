@@ -10,6 +10,7 @@ namespace LogAndReg.Models
     public class UserViewModel
     {
         public string Address { get; set; }
+
         [Display(Name = "User Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "User Name is Required")]
         [RegularExpression("^[A-Z]{1}[a-zA-Z]{4,}$")]
@@ -36,8 +37,11 @@ namespace LogAndReg.Models
         [Required(AllowEmptyStrings = false)]
         [RegularExpression("^[6-9]{1}[0-9]{9}$")]
         public string MobileNumber { get; set; }
+
         public string Gender { get; set; }
+
         public bool IsEmailVerified { get; set; }
+
         public System.Guid ActivationCode { get; set; }
 
        // public IEnumerable<SelectListItem> Countryid { get; set; }

@@ -1,23 +1,24 @@
-﻿@model LogAndReg.Models.Login
+﻿
+@model LogAndReg.Models.Login
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "AdminLog";
 }
 
-<h2>User Login</h2>
+<h2>Admin Login</h2>
 
 @if (ViewBag.status != null && Convert.ToBoolean(ViewBag.status))
 {
     if (ViewBag.Message != null)
     {
-<div class="alert alert-success">
-    <strong>Success! </strong>@ViewBag.Message
-    <br />
-    <br />
-    <a href="/User/Logout" class=" btn btn-info">Logout</a>
-    <a href="/User/ViewDatas" class="btn btn-info">All User Data List</a>
+        <div class="alert alert-success">
+            <strong>Success! </strong>@ViewBag.Message
+            <br />
+            <br />
+            <a href="/User/AdminLogout" class=" btn btn-info">Logout</a>
+            <a href="/User/LogAndReg" class="btn btn-info">All User Data List</a>
 
-</div>
+        </div>
     }
 }
 else
@@ -26,11 +27,11 @@ else
 
     using (Html.BeginForm())
     {
-       if (ViewBag.Message != null)
+        if (ViewBag.Message != null)
         {
             <div class="alert alert-danger">
                 <strong>Error! </strong>@ViewBag.Message
-                
+
             </div>
         }
 
@@ -53,8 +54,8 @@ else
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+             </div>
                 </div>
-            </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -76,14 +77,14 @@ else
 
 }
         <div>
-            <a href="/User/Forgot" class="btn btn-info">Forgot</a>
-           
-            @*@Html.ActionLink("Forgot", "Forgot", "User")
-            @Html.ActionLink("Register Now", "Registration", "User")*@
-        </div>
+            <a href="/User/AdminForgot" class="btn btn-info">Forgot</a>
+            <a href="/User/Registration" class="btn btn-info">Register Now</a>
 
-@section Scripts
+                </div>
+
+                @section Scripts
 {
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-}
+                    <script src="~/Scripts/jquery.validate.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                }
+
