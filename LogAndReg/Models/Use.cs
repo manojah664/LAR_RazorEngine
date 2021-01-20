@@ -12,20 +12,21 @@ namespace LogAndReg.Models
     using System;
     using System.Collections.Generic;
     
-    public  partial class Use
+    public partial class Use
     {
         public int Uid { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool IsEmailVerified { get; set; }
-        public System.Guid ActivationCode { get; set; }
+        public Nullable<bool> IsEmailVerified { get; set; }
+        public Nullable<System.Guid> ActivationCode { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string MobileNumber { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
-        public int Countryid { get; set; }
-        public int StateId { get; set; }
-        public int CityId { get; set; }
+        public Nullable<int> Countryid { get; set; }
+        public Nullable<int> StateId { get; set; }
+        public Nullable<int> CityId { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

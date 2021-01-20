@@ -13,7 +13,8 @@ namespace LogAndReg.Models
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings =false,ErrorMessage ="Password is Required")]
-        [MinLength(6,ErrorMessage ="Minimun 6 characters Required")]
+        [RegularExpression("^[a-zA-Z0-9]{8,}$")]
+        //[MinLength(6,ErrorMessage ="Minimun 6 characters Required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

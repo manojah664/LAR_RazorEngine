@@ -13,9 +13,11 @@
         {
     <div class="alert alert-success">
         <strong>Success!</strong>@ViewBag.Message
-        <br/>
-        <br/>
+        <br />
+        <br />
         <a href="/User/Registration" class="btn btn-info">Cancel</a>
+        <a href="/User/Index" class="btn btn-info">Login</a>
+
     </div>
         }
 
@@ -132,10 +134,21 @@
                             Cities
                         </label>
                     </div>
+
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.CityId, new SelectList(" "), "<--Select Cities-->", new { @class = "form-control" })
                     </div>
                     <br />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.IsActive)
+                                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -149,10 +162,6 @@
             
    
         
-            <div>
-                <a href="/User/Login" class="btn btn-info">Login</a>
-               
-            </div>
     
 
     @section Scripts

@@ -1,6 +1,8 @@
 ﻿@model LogAndReg.Models.Use
 
 @{
+    /**/
+
     ViewBag.Title = "Edit";
 }
 @using (Html.BeginForm())
@@ -12,14 +14,16 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     //  <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <h2>Edit Personal</h2>
+
     <div class="form-group">
-        UserId:@Html.TextBoxFor(x => x.Uid, new { @class = "form-control" })
-    </div>
+            Uid:@Html.TextBoxFor(x => x.Uid, new { @class = "form-control" })
+        </div>
     <div class="form-group">
         UserName:@Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
     </div>
     <div class="form-group">
         Email Id:@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+
     </div>
     <div class="form-group">
         Date Of Birth:@Html.TextBoxFor(x => x.DateOfBirth, new { @class = "form-control" })
@@ -35,6 +39,21 @@
     </div>
     <div class="form-group">
         Password:@Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        CountryId:@Html.TextBoxFor(v => v.Countryid, new { @class = "form-control", @readonly = "true" })
+    </div>
+    <div class="form-group">
+        StateId:@Html.TextBoxFor(v => v.StateId, new { @class = "form-control", @readonly = "true" })
+    </div>
+    <div class="form-group">
+        CityId  :@Html.TextBoxFor(v => v.CityId, new { @class = "form-control", @readonly = "true" })
+    </div>
+    <div class="form-group">
+        ActivationCode:@Html.TextBoxFor(v => v.ActivationCode, new { @class = "form-control", @readonly = "true" })
+    </div>
+    <div class="form-group">
+        IsEmailVerified  :@Html.TextBoxFor(v => v.IsEmailVerified, new { @class = "form-control", @readonly = "true" })
     </div>
     <div class="form-group">
         <button class="btn btn-success">Save</button>

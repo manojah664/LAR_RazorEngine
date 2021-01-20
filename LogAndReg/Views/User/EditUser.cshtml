@@ -1,8 +1,7 @@
-﻿
-@model  LogAndReg.Models.User
+﻿@model LogAndReg.Models.Use
 
 @{
-    ViewBag.Title = "ViewDatas";
+    ViewBag.Title = "EditUser";
 }
 @using (Html.BeginForm())
 {
@@ -14,31 +13,32 @@
     //  <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <h2>Edit Personal</h2>
     <div class="form-group">
-        UserId:@Html.TextBoxFor(v => v.Uid, new { @class = "form-control", @readonly = "true" })
+        Uid:@Html.TextBoxFor(x => x.Uid, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        UserName:@Html.TextBoxFor(v => v.Username, new { @class = "form-control", @readonly = "true" })
+        UserName:@Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        Email Id:@Html.TextBoxFor(v => v.Email, new { @class = "form-control", @readonly = "true" })
+        Email Id:@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
 
 
     </div>
     <div class="form-group">
-        Date Of Birth:@Html.TextBoxFor(v => v.DateOfBirth, new { @class = "form-control" })
+        Date Of Birth:@Html.TextBoxFor(x => x.DateOfBirth, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        Mobile Number:@Html.TextBoxFor(v => v.MobileNumber, new { @class = "form-control", @readonly = "true" })
+        Mobile Number:@Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        Address:@Html.TextBoxFor(v => v.Address, new { @class = "form-control", @readonly = "true" })
+        Address:@Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        Gender:@Html.TextBoxFor(v => v.Gender, new { @class = "form-control" })
+        Gender:@Html.TextBoxFor(x => x.Gender, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        Password:@Html.TextBoxFor(v => v.Password, new { @class = "form-control", @readonly = "true" })
+        Password:@Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
     </div>
+
     <div class="form-group">
         CountryId:@Html.TextBoxFor(v => v.Countryid, new { @class = "form-control", @readonly = "true" })
     </div>
@@ -54,13 +54,11 @@
     <div class="form-group">
         IsEmailVerified  :@Html.TextBoxFor(v => v.IsEmailVerified, new { @class = "form-control", @readonly = "true" })
     </div>
-
     <div class="form-group">
         <button class="btn btn-success">Save</button>
 
     </div>
 }
-
 
 
 

@@ -7,23 +7,24 @@ using System.Web.Mvc;
 
 namespace LogAndReg.Models
 {
-    public class UserViewModel
+    public class User
     {
         public string Address { get; set; }
+
         [Display(Name = "User Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "User Name is Required")]
         [RegularExpression("^[A-Z]{1}[a-zA-Z]{4,}$")]
         public string Username { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email Id is Required ")]
-      //  [RegularExpression(@"^([0-9a-zA-Z](?>[-.\w]*[0-9a-zA-Z])*@(?>[0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$")]
-         [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^([0-9a-zA-Z](?>[-.\w]*[0-9a-zA-Z])*@(?>[0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is Required")]
         [DataType(DataType.Password)]
         [RegularExpression("^[a-zA-Z0-9]{8,}$")]
-       // [MinLength(6, ErrorMessage = "Minimum 6 Characters Required")]
+        // [MinLength(6, ErrorMessage = "Minimum 6 Characters Required")]
         public string Password { get; set; }
 
         [Display(Name = "Date Of Birth")]
@@ -37,16 +38,16 @@ namespace LogAndReg.Models
         [RegularExpression("^[6-9]{1}[0-9]{9}$")]
         public string MobileNumber { get; set; }
         public string Gender { get; set; }
-        public bool IsEmailVerified { get; set; }
-        public System.Guid ActivationCode { get; set; }
-
-       // public IEnumerable<SelectListItem> Countryid { get; set; }
-        public int Countryid { get; set; }
-
-        public int StateId { get; set; }
-
-        public int CityId { get; set; }
+        public int Uid { get; set; }
+        public Nullable<int> Countryid { get; set; }
+        public Nullable<int> StateId { get; set; }
+        public Nullable<int> CityId { get; set; }
+        public Nullable<bool> IsEmailVerified { get; set; }
+        public Nullable<System.Guid> ActivationCode { get; set; }
         public bool IsActive { get; set; }
-        public List<SelectListItem> CountryList { get; set; }
+
+
+
+
     }
 }

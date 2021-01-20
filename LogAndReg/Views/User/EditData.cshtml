@@ -25,7 +25,8 @@
                   webGrid.Column("MobileNumber", "MobileNumber"),
                    webGrid.Column("Address", "Address"),
                    webGrid.Column(header:"Edit",format:@<a href="/User/Edit/@item.Uid" class=" btn btn-success">Edit</a>),
-                            webGrid.Column(header: "Delete", format:@<a href="/User/Delete/@item.Uid" class=" btn btn-danger">Delete</a>)
+                   webGrid.Column(header: "Active/InActive", format:@<a  href="@Url.Action("UpdateStatusDetails", "User", new { id=@item.Uid,Status = @item.IsActive })" class="btn btn-danger">@(item.IsActive==false?"Active":"InActive")</a>)
+
 
                                           ))
 </div>
