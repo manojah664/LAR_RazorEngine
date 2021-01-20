@@ -22,6 +22,7 @@ namespace LogAndReg.Controllers
         }
 
         [HttpPost]
+       // [ValidateAntiForgeryToken]
         public ActionResult Index(NewView newView)
         {
             string message = "";
@@ -77,6 +78,7 @@ namespace LogAndReg.Controllers
             return View();
 
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(Login login)
@@ -121,6 +123,7 @@ namespace LogAndReg.Controllers
         {
             return View();
         }
+
 
 
 
@@ -304,7 +307,7 @@ namespace LogAndReg.Controllers
 
         }
 
-        public ActionResult ViewData()
+        public ActionResult UserView()
         {
             UserDBEntities db = new UserDBEntities();
             return View(db.Uses.ToList());
@@ -431,7 +434,16 @@ namespace LogAndReg.Controllers
             return RedirectToAction("EditData");
         }
 
-      
+        public ActionResult Delete(int id)
+        {
+            UserDBEntities db = new UserDBEntities();
+            var model = db.Uses.Find(id);
+            db.Uses.Remove(model);
+            db.SaveChanges();
+            return RedirectToAction("EditData");
+
+        }
+       
         [NonAction]
         public bool IsEmailExist(string Email)
         {
@@ -444,16 +456,21 @@ namespace LogAndReg.Controllers
         }
 
 
+       
+
+        
+
+
         [HttpGet]
         public JsonResult GetStateName(int? Countryid)
         {
+
+            
             UserDBEntities db = new UserDBEntities();
+
             var result = db.States.Where(e => e.Countryid == Countryid).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString() }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
-
 
 
         [HttpGet]

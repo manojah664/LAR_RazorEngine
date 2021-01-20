@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LogAndReg.Models.Use>
+
+@{
+    ViewBag.Title = "UserView";
+
+}
+
+<h2>View Data</h2>
+
+
+@{
+    WebGrid webGrid = new WebGrid(source: Model, rowsPerPage: 10);
+}
+<div class="grid-table">
+    @webGrid.GetHtml(
+        tableStyle: "table table-bordered table-striped",
+        htmlAttributes: new {@id="webGrid"},
+        columns:webGrid.Columns(
+           webGrid.Column("Uid", "Uid"),
+            webGrid.Column("Username","Username"),
+              webGrid.Column("Email", "Email"),
+                webGrid.Column("DateOfBirth", "DateOfBirth"),
+                  webGrid.Column("MobileNumber", "MobileNumber"),
+                   webGrid.Column("Address", "Address")
+
+                ))
+</div>
+<a href="/User/LogAndReg" class="btn btn-info">Cancel</a>
+

@@ -302,19 +302,18 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Forgot.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
-    <Content Include="Views\User\Valid.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\User\LogAndReg.cshtml" />
-    <Content Include="Views\User\ViewData.cshtml" />
     <Content Include="Views\User\EditData.cshtml" />
-    <Content Include="Views\User\Edit.cshtml" />
-    <Content Include="Views\User\UserLogin.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\ViewDatas.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Valid.cshtml" />
+    <Content Include="Views\User\UserView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
