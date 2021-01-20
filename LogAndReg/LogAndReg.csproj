@@ -314,7 +314,6 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\UserLogin.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\User\ViewDatas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

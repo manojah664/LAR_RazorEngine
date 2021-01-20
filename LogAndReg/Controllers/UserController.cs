@@ -311,7 +311,7 @@ namespace LogAndReg.Controllers
         }
 
 
-        public ActionResult ViewDatas(string Password)
+        public ActionResult ViewDatas()
         {
             var UserName = Session["UserName"].ToString();
             UserDBEntities db = new UserDBEntities();
@@ -389,25 +389,12 @@ namespace LogAndReg.Controllers
 
         }
     
-
-
-
         public ActionResult EditData()
         {
             UserDBEntities db = new UserDBEntities();
             return View(db.Uses.ToList());
         }
         
-
-       
-
-        public ActionResult EditUser(int id)
-        {
-            UserDBEntities db = new UserDBEntities();
-            var model = db.Uses.Find(id);
-
-            return View(model);
-        }
 
         [HttpGet]
         public ActionResult Edit(int id)
@@ -444,17 +431,7 @@ namespace LogAndReg.Controllers
             return RedirectToAction("EditData");
         }
 
-        public ActionResult Delete(int id)
-        {
-            UserDBEntities db = new UserDBEntities();
-            var model = db.Uses.Find(id);
-            //Use use = new Use();
-            db.Uses.Remove(model);
-            db.SaveChanges();
-            return RedirectToAction("EditData");
-
-        }
-
+      
         [NonAction]
         public bool IsEmailExist(string Email)
         {
