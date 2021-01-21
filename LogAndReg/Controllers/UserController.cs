@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using ClosedXML.Excel;
 using LogAndReg.Models;
-
+using Syncfusion.XlsIO;
+using System.Data;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace LogAndReg.Controllers
 {
@@ -22,22 +28,24 @@ namespace LogAndReg.Controllers
         }
 
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public ActionResult Index(NewView newView)
         {
             string message = "";
             bool status = false;
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
 
             using (UserDBEntities db = new UserDBEntities())
             {
-                var s= db.Uses.Where(a => a.Username == newView.UserName).FirstOrDefault();
-                if (s!= null)
+                var s = db.Uses.Where(a => a.Username == newView.UserName).FirstOrDefault();
+                if (s != null)
                 {
-                    if (newView.UserName.Trim() =="Admin")
+
+
+                    if (newView.UserName.Trim() == "Admin")
                     {
                         message = "User login Success";
                         status = true;
@@ -52,7 +60,7 @@ namespace LogAndReg.Controllers
                         ViewBag.Message = message;
                         ViewBag.status = status;
                         Session["UserName"] = newView.UserName.Trim();
-                         return RedirectToAction("ViewDatas");
+                        return RedirectToAction("ViewDatas");
                     }
                 }
                 else
@@ -64,73 +72,55 @@ namespace LogAndReg.Controllers
                     return View();
                 }
             }
-           
+
 
 
         }
 
 
+        //[HttpPost]
+        //public FileResult Export( )
+        //{
+
+        //    UserDBEntities entities = new UserDBEntities();
+        //    DataTable dt = new DataTable("Grid");
+        //    dt.Columns.AddRange(new DataColumn[10] { new DataColumn("Uid"),
+        //                                    new DataColumn("Username"),
+        //                                    new DataColumn("Email"),
+        //                                    new DataColumn("Password"),
+        //                                    new DataColumn("Address"),
+        //                                    new DataColumn("Gender"),
+        //                                    new DataColumn("Countryid"),
+        //                                      new DataColumn("StateId"),
+        //                                        new DataColumn("CityId"),
+        //                                          new DataColumn("IsActive"),
 
 
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
+        //    });
 
-        }
+        //    var custom = from Use in entities.Uses.Take(10)
+        //                    select Use;
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(Login login)
-        {
-            var message = "";
-            bool status = false;
-            using (UserDBEntities db = new UserDBEntities())
-            {
-                var v = db.Uses.Where(a => a.Email == login.Email).FirstOrDefault();
-                if (v != null)
-                {
-                    if (string.Compare(Crypto.Hash(login.Password), v.Password) == 0)
-                    {
-                        message = "Login Success";
-                        status = true;
-                    }
-                    else if (v.Password == "")
-                    {
+        //    foreach (var customer in custom)
+        //    {
+        //        dt.Rows.Add(customer.Uid, customer.Username, customer.Email, customer.Password, customer.Address, customer.Gender, customer.Countryid, customer.StateId, customer.CityId, customer.IsActive);
+        //    }
 
-                        message = "Please enter a valid Password";
-                        status = true;
-
-                    }
-                    else
-                    {
-                        message = "Please enter a valid Password";
-                        status = false;
-                    }
-                }
-                else
-                {
-                    message = "Please enter a valid Email and Password";
-
-                }
-            }
-            ViewBag.Message = message;
-            ViewBag.status = status;
-            return View();
-        }
-
-        public ActionResult UserLogin()
-        {
-            return View();
-        }
-
-
-
+        //    using (XLWorkbook wb = new XLWorkbook())
+        //    {
+        //        wb.Worksheets.Add(dt);
+        //        using (MemoryStream stream = new MemoryStream())
+        //        {
+        //            wb.SaveAs(stream);
+        //            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Grid.xlsx");
+        //        }
+        //    }
+        //}
 
 
         public ActionResult Logout()
         {
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -244,7 +234,7 @@ namespace LogAndReg.Controllers
                         //var CountryList = new SelectList(db.Countries, "CountryId", "Cname");
 
                         Use use = new Use();
-                        use.Countryid =userViewModel.Countryid;
+                        use.Countryid = userViewModel.Countryid;
                         use.Address = userViewModel.Address;
                         use.ActivationCode = userViewModel.ActivationCode;
                         use.Email = userViewModel.Email;
@@ -257,7 +247,7 @@ namespace LogAndReg.Controllers
                         use.Username = userViewModel.Username;
                         use.CityId = userViewModel.CityId;
                         use.IsActive = userViewModel.IsActive;
-                        
+
 
 
                         db.Uses.Add(use);
@@ -321,56 +311,69 @@ namespace LogAndReg.Controllers
             var v = db.Uses.Where(a => a.Username == UserName).Select(a => new User
             {
                 Username = a.Username,
-                Email=a.Email,
-                Uid=a.Uid,
-                Password=a.Password,
-                DateOfBirth=a.DateOfBirth.Value,
-                MobileNumber=a.MobileNumber,
-                Address=a.Address,
-                Gender=a.Gender,
-                IsEmailVerified=a.IsEmailVerified,
-                ActivationCode =a.ActivationCode,
-                Countryid=a.Countryid,
+                Email = a.Email,
+                Uid = a.Uid,
+                Password = a.Password,
+                DateOfBirth = a.DateOfBirth.Value,
+                MobileNumber = a.MobileNumber,
+                Address = a.Address,
+                Gender = a.Gender,
+                IsEmailVerified = a.IsEmailVerified,
+                ActivationCode = a.ActivationCode,
+                Countryid = a.Countryid,
                 StateId = a.StateId,
-                CityId=a.CityId
+                CityId = a.CityId
 
 
             }).FirstOrDefault();
-           
+
             return View(v);
         }
 
         [HttpPost]
-        public ActionResult ViewDatas(User user )
+        public ActionResult ViewDatas(User user)
         {
+            bool status = false;
+            string message = "";
+
             try
             {
-                using (UserDBEntities us = new UserDBEntities())
+                if (!ModelState.IsValid)
                 {
 
-                    Use use = new Use();
-                    use.Uid = user.Uid;
-                    use.Address = user.Address;
-                    use.Email = user.Email;
-                    use.DateOfBirth = user.DateOfBirth;
-                    use.Gender = user.Gender;
-                    use.Password = user.Password;
-                    use.MobileNumber = user.MobileNumber;
-                    use.Username = user.Username;
-                    use.IsEmailVerified = user.IsEmailVerified;
-                    use.ActivationCode = user.ActivationCode;
-                    use.StateId = user.StateId;
-                    use.Countryid = user.Countryid;
-                    use.CityId = user.CityId;
-                    use.IsActive = user.IsActive;
+                    using (UserDBEntities us = new UserDBEntities())
+                    {
+
+                        Use use = new Use();
+                        use.Uid = user.Uid;
+                        use.Address = user.Address;
+                        use.Email = user.Email;
+                        use.DateOfBirth = user.DateOfBirth;
+                        use.Gender = user.Gender;
+                        use.Password = user.Password;
+                        use.MobileNumber = user.MobileNumber;
+                        use.Username = user.Username;
+                        use.IsEmailVerified = user.IsEmailVerified;
+                        use.ActivationCode = user.ActivationCode;
+                        use.StateId = user.StateId;
+                        use.Countryid = user.Countryid;
+                        use.CityId = user.CityId;
+                        use.IsActive = user.IsActive;
 
 
-                    us.Entry(use).State = System.Data.Entity.EntityState.Modified;
-                    us.SaveChanges();
+                        us.Entry(use).State = System.Data.Entity.EntityState.Modified;
+                        us.SaveChanges();
+                    }
+                    message = "Updateds Are Saved";
+                    status = true;
+
                 }
-              
-              
-               
+                else
+                {
+                    message = "Invalid Request";
+                }
+                ViewBag.Message = message;
+                ViewBag.Status = status;
             }
             catch (DbEntityValidationException e)
             {
@@ -386,25 +389,29 @@ namespace LogAndReg.Controllers
                 }
                 throw;
             }
-            return RedirectToAction("Index");
+
+
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            return View();
 
 
 
         }
-    
+
         public ActionResult EditData()
         {
             UserDBEntities db = new UserDBEntities();
             return View(db.Uses.ToList());
         }
-        
+
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
             UserDBEntities db = new UserDBEntities();
             var model = db.Uses.Find(id);
-            
+
             return View(model);
         }
 
@@ -443,7 +450,7 @@ namespace LogAndReg.Controllers
             return RedirectToAction("EditData");
 
         }
-       
+
         [NonAction]
         public bool IsEmailExist(string Email)
         {
@@ -456,16 +463,16 @@ namespace LogAndReg.Controllers
         }
 
 
-       
 
-        
+
+
 
 
         [HttpGet]
         public JsonResult GetStateName(int? Countryid)
         {
 
-            
+
             UserDBEntities db = new UserDBEntities();
 
             var result = db.States.Where(e => e.Countryid == Countryid).Select(e => new SelectListItem { Text = e.Sname, Value = e.StateId.ToString() }).ToList();
@@ -481,8 +488,8 @@ namespace LogAndReg.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-       
-        public ActionResult UpdateStatusDetails(int id,bool Status)
+
+        public ActionResult UpdateStatusDetails(int id, bool Status)
         {
             UserDBEntities user = new UserDBEntities();
             var result = user.Uses.Where(e => e.Uid == id).FirstOrDefault();
@@ -496,5 +503,57 @@ namespace LogAndReg.Controllers
             return RedirectToAction("EditData");
         }
 
+      
+      UserDBEntities db = new UserDBEntities();
+        private object filename;
+        private object itfunda;
+
+        // GET: ExportData
+        public ActionResult ExportToExcel()
+        {
+            UserDBEntities db = new UserDBEntities();
+              var data = db.Uses.ToList().Select(p=>new {
+                p.Uid,
+                p.Username,
+                p.Email,
+                p.Password,
+                p.MobileNumber,
+                p.Address,
+                p.Gender,
+                p.DateOfBirth,
+                
+            });
+
+            // instantiate the GridView control from System.Web.UI.WebControls namespace
+            // set the data source
+            GridView gridview = new GridView();
+            gridview.DataSource = data;
+            gridview.DataBind();
+
+            // Clear all the content from the current response
+            Response.ClearContent();
+            Response.Buffer = true;
+            // set the header
+            Response.AddHeader("content-disposition", "attachment;filename = itfunda.xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            // create HtmlTextWriter object with StringWriter
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // render the GridView to the HtmlTextWriter
+                    gridview.RenderControl(htw);
+                    // Output the GridView content saved into StringWriter
+                    Response.Output.Write(sw.ToString());
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            return View();
+        }
     }
+
+   
+    
 }

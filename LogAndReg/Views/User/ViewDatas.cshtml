@@ -4,64 +4,84 @@
 @{
     ViewBag.Title = "ViewDatas";
 }
-@using (Html.BeginForm())
+
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
 {
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">
+            <strong>Success!</strong>@ViewBag.Message
+            <br />
+            <br />
+           
+            <a href="/User/Index" class="btn btn-info">Logout</a>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    //  <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <h2>Edit Personal</h2>
-    <div class="form-group">
-        UserId:@Html.TextBoxFor(v => v.Uid, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        UserName:@Html.TextBoxFor(v => v.Username, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        Email Id:@Html.TextBoxFor(v => v.Email, new { @class = "form-control", @readonly = "true" })
+        </div>
+    }
 
-
-    </div>
-    <div class="form-group">
-        Date Of Birth:@Html.TextBoxFor(v => v.DateOfBirth, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        Mobile Number:@Html.TextBoxFor(v => v.MobileNumber, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        Address:@Html.TextBoxFor(v => v.Address, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        Gender:@Html.TextBoxFor(v => v.Gender, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        Password:@Html.TextBoxFor(v => v.Password, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        CountryId:@Html.TextBoxFor(v => v.Countryid, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        StateId:@Html.TextBoxFor(v => v.StateId, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        CityId  :@Html.TextBoxFor(v => v.CityId, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        ActivationCode:@Html.TextBoxFor(v => v.ActivationCode, new { @class = "form-control", @readonly = "true" })
-    </div>
-    <div class="form-group">
-        IsEmailVerified  :@Html.TextBoxFor(v => v.IsEmailVerified, new { @class = "form-control", @readonly = "true" })
-    </div>
-
-    <div class="form-group">
-        <button class="btn btn-success">Save</button>
-
-    </div>
 }
+else
+{
+    
+    using (Html.BeginForm())
+    {
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        //  <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <h2>Edit Personal</h2>
+        <div class="form-group">
+            UserId:@Html.TextBoxFor(v => v.Uid, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            UserName:@Html.TextBoxFor(v => v.Username, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            Email Id:@Html.TextBoxFor(v => v.Email, new { @class = "form-control", @readonly = "true" })
 
 
+        </div>
+        <div class="form-group">
+            Date Of Birth:@Html.TextBoxFor(v => v.DateOfBirth, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            Mobile Number:@Html.TextBoxFor(v => v.MobileNumber, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            Address:@Html.TextBoxFor(v => v.Address, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            Gender:@Html.TextBoxFor(v => v.Gender, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            Password:@Html.TextBoxFor(v => v.Password, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            CountryId:@Html.TextBoxFor(v => v.Countryid, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            StateId:@Html.TextBoxFor(v => v.StateId, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            CityId  :@Html.TextBoxFor(v => v.CityId, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            ActivationCode:@Html.TextBoxFor(v => v.ActivationCode, new { @class = "form-control", @readonly = "true" })
+        </div>
+        <div class="form-group">
+            IsEmailVerified  :@Html.TextBoxFor(v => v.IsEmailVerified, new { @class = "form-control", @readonly = "true" })
+        </div>
 
+        <div class="form-group">
+            <button class="btn btn-success">Save</button>
+
+        </div>
+    }
+
+
+}
 
 

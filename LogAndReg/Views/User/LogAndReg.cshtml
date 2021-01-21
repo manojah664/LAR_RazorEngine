@@ -11,30 +11,42 @@
 }
 <link  href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <div class="grid-table">
-@webGrid.GetHtml(
-    tableStyle:"table table-bordered table-striped",
-    htmlAttributes:new { @id="webGrid"},
-    columns:webGrid.Columns(
-        webGrid.Column("Uid","Uid"),
-         webGrid.Column("Username", "Username"),
-          webGrid.Column("Email", "Email"),
-         
-            webGrid.Column("DateOfBirth", "DateOfBirth"),
-             webGrid.Column("MobileNumber", "MobileNumber"),
-              webGrid.Column("Gender", "Gender"),
-               webGrid.Column("Address", "Address"),
-               webGrid.Column("ActivationCode", "ActivationCode"),
-                webGrid.Column("IsEmailVerified", "IsEmailVerified"),
-                 webGrid.Column("Countryid", "Countryid"),
-                  webGrid.Column("StateId", "StateId"),
-                   webGrid.Column("CityId", "CityId")
+    @webGrid.GetHtml(
+        tableStyle:"table table-bordered table-striped",
+        htmlAttributes:new { @id="webGrid"},
+        columns:webGrid.Columns(
+            webGrid.Column("Uid","Uid"),
+             webGrid.Column("Username", "Username"),
+              webGrid.Column("Email", "Email"),
 
-))
+                webGrid.Column("DateOfBirth", "DateOfBirth"),
+                 webGrid.Column("MobileNumber", "MobileNumber"),
+                  webGrid.Column("Gender", "Gender"),
+                   webGrid.Column("Address", "Address"),
+                   webGrid.Column("ActivationCode", "ActivationCode"),
+                    webGrid.Column("IsEmailVerified", "IsEmailVerified"),
+                     webGrid.Column("Countryid", "Countryid"),
+                      webGrid.Column("StateId", "StateId"),
+                       webGrid.Column("CityId", "CityId")
+
+
+
+
+    ))
+    @{Html.BeginForm("ExportToExcel", "User", FormMethod.Get);
+        {
+            <div>
+                <input type="submit" value="ExportDataToExcel" style="width:150px;height:27px" />
+            </div>
+        }
+        Html.EndForm();
+    }
+    <br />
 </div>
 <div>
     <a href="/User/UserView" class="btn btn-info">User View</a>
     <a href="/User/EditData" class="btn btn-info">Edit View</a>
-    <a href="/User/Index" class="btn btn-info">Cancel</a>
+    <a href="/User/Index" class="btn btn-info">Logout</a>
 </div>
 
 
