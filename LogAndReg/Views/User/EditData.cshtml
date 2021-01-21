@@ -25,10 +25,11 @@
                   webGrid.Column("MobileNumber", "MobileNumber"),
                    webGrid.Column("Address", "Address"),
                    webGrid.Column(header:"Edit",format:@<a href="/User/Edit/@item.Uid" class=" btn btn-success">Edit</a>),
-                   webGrid.Column(header: "Active/InActive", format:@<a  href="@Url.Action("UpdateStatusDetails", "User", new { id=@item.Uid,Status = @item.IsActive })" class="btn btn-danger">@(item.IsActive==false?"Active":"InActive")</a>)
+                            webGrid.Column(header: "Active/InActive", format:@<a href="@Url.Action("UpdateStatusDetails", "User", new { id=@item.Uid,Status = @item.IsActive })" class="btn btn-danger">@(item.IsActive == false ? "Active" : "InActive")</a>)
 
 
-                                          ))
+                                                           ))
 </div>
+<a href="/User/LogAndReg" class="btn btn-info">Back</a>
 
-<a href="/User/LogAndReg" class="btn btn-info">Cancel</a>
+@*<a href="/User/LogAndReg" class="btn btn-info">Cancel</a>*@

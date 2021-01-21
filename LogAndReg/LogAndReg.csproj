@@ -337,6 +337,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Valid.cshtml" />
     <Content Include="Views\User\UserView.cshtml" />
+    <Content Include="Views\User\Logic.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

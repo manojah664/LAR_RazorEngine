@@ -39,6 +39,7 @@ namespace LogAndReg.Controllers
             }
 
             using (UserDBEntities db = new UserDBEntities())
+
             {
                 var s = db.Uses.Where(a => a.Username == newView.UserName).FirstOrDefault();
                 if (s != null)
@@ -50,7 +51,7 @@ namespace LogAndReg.Controllers
                         message = "User login Success";
                         status = true;
                         ViewBag.Message = message;
-                        ViewBag.status = status;
+                        ViewBag.Status = status;
                         return RedirectToAction("LogAndReg");
                     }
                     else
@@ -73,50 +74,7 @@ namespace LogAndReg.Controllers
                 }
             }
 
-
-
         }
-
-
-        //[HttpPost]
-        //public FileResult Export( )
-        //{
-
-        //    UserDBEntities entities = new UserDBEntities();
-        //    DataTable dt = new DataTable("Grid");
-        //    dt.Columns.AddRange(new DataColumn[10] { new DataColumn("Uid"),
-        //                                    new DataColumn("Username"),
-        //                                    new DataColumn("Email"),
-        //                                    new DataColumn("Password"),
-        //                                    new DataColumn("Address"),
-        //                                    new DataColumn("Gender"),
-        //                                    new DataColumn("Countryid"),
-        //                                      new DataColumn("StateId"),
-        //                                        new DataColumn("CityId"),
-        //                                          new DataColumn("IsActive"),
-
-
-        //    });
-
-        //    var custom = from Use in entities.Uses.Take(10)
-        //                    select Use;
-
-        //    foreach (var customer in custom)
-        //    {
-        //        dt.Rows.Add(customer.Uid, customer.Username, customer.Email, customer.Password, customer.Address, customer.Gender, customer.Countryid, customer.StateId, customer.CityId, customer.IsActive);
-        //    }
-
-        //    using (XLWorkbook wb = new XLWorkbook())
-        //    {
-        //        wb.Worksheets.Add(dt);
-        //        using (MemoryStream stream = new MemoryStream())
-        //        {
-        //            wb.SaveAs(stream);
-        //            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Grid.xlsx");
-        //        }
-        //    }
-        //}
-
 
         public ActionResult Logout()
         {
@@ -289,11 +247,22 @@ namespace LogAndReg.Controllers
         }
 
 
+        public ActionResult Logic()
+        {
+            UserDBEntities userDB = new UserDBEntities();
+            return View(userDB.Uses.ToList());
+
+        }
 
         public ActionResult LogAndReg()
         {
-            UserDBEntities db = new UserDBEntities();
-            return View(db.Uses.ToList());
+            string message = "Login Successfully";
+            bool status = true;
+//UserDBEntities db = new UserDBEntities();
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            //  return View(db.Uses.ToList());
+            return View();
 
         }
 
@@ -515,12 +484,16 @@ namespace LogAndReg.Controllers
               var data = db.Uses.ToList().Select(p=>new {
                 p.Uid,
                 p.Username,
-                p.Email,
-                p.Password,
+                p.Email,     
                 p.MobileNumber,
                 p.Address,
                 p.Gender,
                 p.DateOfBirth,
+                p.IsEmailVerified,
+                p.Countryid,
+                p.StateId,
+                p.CityId,
+                p.IsActive
                 
             });
 
