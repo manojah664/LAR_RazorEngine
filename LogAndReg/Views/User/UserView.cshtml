@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LogAndReg.Models.Use>
+﻿@model IEnumerable<LogAndReg.Models.User>
 
 @{
     ViewBag.Title = "UserView";
@@ -21,7 +21,18 @@
               webGrid.Column("Email", "Email"),
                 webGrid.Column("DateOfBirth", "DateOfBirth"),
                   webGrid.Column("MobileNumber", "MobileNumber"),
-                   webGrid.Column("Address", "Address")
+                   webGrid.Column("Address", "Address"),
+                                      webGrid.Column("Cname", "Cname"),
+                                                         webGrid.Column("Sname", "Sname"),
+                                                                            webGrid.Column("Cityname", "Cityname"),
+                                                              webGrid.Column("IsActive", "IsActive"),
+                                                                                           webGrid.Column("IsActive", "IsActive"),
+
+
+
+
+
+
 
                 ))
 </div>

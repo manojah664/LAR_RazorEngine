@@ -158,6 +158,7 @@
 
             </div>
         }
+
     }
             
    
@@ -172,14 +173,14 @@
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
         <script type="text/javascript">
             $('#StateId').change(function () {
-                
+
                 debugger;
                 // alert($('#Countryid').val());
-                
+
                 var StateId = $('#StateId').val();
                 $.ajax({
                     type: "get",
-                    data: { StateId: StateId },
+                    data: { StateId },
                     dataType: 'json',
                     url: "/User/GetCityName",
                     success: function (result) {
@@ -211,7 +212,7 @@
                 var Countryid = $('#Countryid').val();
                 $.ajax({
                     type: "get",
-                    data: { Countryid: Countryid },
+                    data: { Countryid },
                     dataType: 'json',
                     url: "/User/GetStateName",
                     success: function (result) {
@@ -234,5 +235,18 @@
 
                 });
             });
+           
+                //submit search, display loading message
+                $('input[type = submit]').click(function(){
+                    $.blockUI({
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            opacity: .6
+                        }
+                    });
+                });
+        
         </script>
     }

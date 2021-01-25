@@ -45,6 +45,9 @@ namespace LogAndReg.Models
         public Nullable<bool> IsEmailVerified { get; set; }
         public Nullable<System.Guid> ActivationCode { get; set; }
         public bool IsActive { get; set; }
+        public string Cname { get; set; }
+        public string Sname { get; set; }
+        public string Cityname { get; set; }
 
 
 

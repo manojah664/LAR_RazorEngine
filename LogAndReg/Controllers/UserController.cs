@@ -78,6 +78,7 @@ namespace LogAndReg.Controllers
 
         public ActionResult Logout()
         {
+            Session.Abandon();
             return RedirectToAction("Index");
         }
 
@@ -249,8 +250,38 @@ namespace LogAndReg.Controllers
 
         public ActionResult Logic()
         {
-            UserDBEntities userDB = new UserDBEntities();
-            return View(userDB.Uses.ToList());
+            using (UserDBEntities userDB = new UserDBEntities()) 
+            {
+
+                var innerJoin = (from e in db.Uses
+                                 join d in db.Countries on e.Countryid equals d.Countryid
+                                 join f in db.States on e.StateId equals f.StateId
+                                 join h in db.Cities on f.StateId equals h.StateId
+
+
+                                 select new User
+                                 {
+                                     Username = e.Username,
+                                     Email = e.Email.ToString(),
+                                     Uid = e.Uid,
+                                     DateOfBirth = e.DateOfBirth.Value,
+                                     MobileNumber = e.MobileNumber.ToString(),
+                                     Address = e.Address.ToString(),
+                                     Gender = e.Gender.ToString(),
+                                     Cname = d.Cname,
+                                     Sname = f.Sname,
+                                     Cityname = h.Cityname,
+                                     IsActive = e.IsActive.Value
+
+
+                                 }).ToList();
+                return View(innerJoin);
+            }
+
+
+
+
+          //  return View(userDB.Uses.ToList());
 
         }
 
@@ -258,10 +289,10 @@ namespace LogAndReg.Controllers
         {
             string message = "Login Successfully";
             bool status = true;
-//UserDBEntities db = new UserDBEntities();
+
             ViewBag.Message = message;
             ViewBag.Status = status;
-            //  return View(db.Uses.ToList());
+          
             return View();
 
         }
@@ -277,7 +308,8 @@ namespace LogAndReg.Controllers
         {
             var UserName = Session["UserName"].ToString();
             UserDBEntities db = new UserDBEntities();
-            var v = db.Uses.Where(a => a.Username == UserName).Select(a => new User
+            var v = db.Uses.Where(a => a.Username == UserName).Select(a => new User  
+           
             {
                 Username = a.Username,
                 Email = a.Email,
