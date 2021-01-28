@@ -14,6 +14,8 @@ using Syncfusion.XlsIO;
 using System.Data;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace LogAndReg.Controllers
 {
@@ -250,7 +252,7 @@ namespace LogAndReg.Controllers
 
         public ActionResult Logic()
         {
-            using (UserDBEntities userDB = new UserDBEntities()) 
+            using (UserDBEntities userDB = new UserDBEntities())
             {
 
                 var innerJoin = (from e in db.Uses
@@ -281,7 +283,7 @@ namespace LogAndReg.Controllers
 
 
 
-          //  return View(userDB.Uses.ToList());
+            //  return View(userDB.Uses.ToList());
 
         }
 
@@ -292,7 +294,7 @@ namespace LogAndReg.Controllers
 
             ViewBag.Message = message;
             ViewBag.Status = status;
-          
+
             return View();
 
         }
@@ -308,8 +310,8 @@ namespace LogAndReg.Controllers
         {
             var UserName = Session["UserName"].ToString();
             UserDBEntities db = new UserDBEntities();
-            var v = db.Uses.Where(a => a.Username == UserName).Select(a => new User  
-           
+            var v = db.Uses.Where(a => a.Username == UserName).Select(a => new User
+
             {
                 Username = a.Username,
                 Email = a.Email,
@@ -504,8 +506,8 @@ namespace LogAndReg.Controllers
             return RedirectToAction("EditData");
         }
 
-      
-      UserDBEntities db = new UserDBEntities();
+
+        UserDBEntities db = new UserDBEntities();
         private object filename;
         private object itfunda;
 
@@ -513,10 +515,11 @@ namespace LogAndReg.Controllers
         public ActionResult ExportToExcel()
         {
             UserDBEntities db = new UserDBEntities();
-              var data = db.Uses.ToList().Select(p=>new {
+            var data = db.Uses.ToList().Select(p => new
+            {
                 p.Uid,
                 p.Username,
-                p.Email,     
+                p.Email,
                 p.MobileNumber,
                 p.Address,
                 p.Gender,
@@ -526,7 +529,7 @@ namespace LogAndReg.Controllers
                 p.StateId,
                 p.CityId,
                 p.IsActive
-                
+
             });
 
             // instantiate the GridView control from System.Web.UI.WebControls namespace
@@ -557,8 +560,177 @@ namespace LogAndReg.Controllers
             }
             return View();
         }
+
+        public ActionResult ContactForm()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult ContactForm(MemberModels ImageFiles, HttpPostedFileBase ImageFile)
+        {
+            UserDBEntities user = new UserDBEntities();
+
+
+            //string fileName = Path.GetFileName(member.ImagePath);
+
+
+            string FileName = Path.GetFileName(ImageFile.FileName);
+            string path = Path.Combine(Server.MapPath("~/Models/Extended"), FileName);
+
+            ImageFile.SaveAs(path);
+
+            var a = ImageFiles.Name;
+            var b = ImageFiles.PhoneNumber;
+            var c = path;
+            var d = FileName;
+
+
+            Upload u = new Upload();
+            u.MemberName = a;
+            u.PhoneNumber = b;
+            u.ImagePath = c;
+            u.ImageName = d;
+            user.Uploads.Add(u);
+            user.SaveChanges();
+
+            return RedirectToAction("ContactForm");
+        }
+
+        //public ActionResult Image()
+        //{
+
+        //    return View();
+
+        //}
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Image(HttpPostedFileBase file)
+        //{
+        //    Gallery gallery = new Gallery();
+
+        //    if (file != null)
+        //    {
+        //        string fileName = Path.GetFileName(file.FileName);
+        //        string path = Path.Combine(Server.MapPath("~/Models/Image"), fileName);
+
+
+        //        fileName = DateTime.Now.ToString("yyyyMMdd") + "-" + fileName.Trim() + path;
+
+        //        UserDBEntities userDB = new UserDBEntities();
+        //        userDB.Galleries.Add(new Gallery
+        //        {
+
+        //        });
+        //        userDB.SaveChanges();
+
+
+
+
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+
+        public ActionResult File()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+
+        public ActionResult File(HttpPostedFileBase file_Uploader)
+
+        {
+
+            if (file_Uploader != null)
+
+            {
+
+                string fileName = string.Empty;
+
+                string destinationPath = string.Empty;
+
+
+
+                List<MemberModel> uploadFileModel = new List<MemberModel>();
+
+
+
+                fileName = Path.GetFileName(file_Uploader.FileName);
+
+                destinationPath = Path.Combine(Server.MapPath("~/Models/Image/"), fileName);
+
+                file_Uploader.SaveAs(destinationPath);
+
+                if (Session["fileUploader"] != null)
+
+                {
+
+                    var isFileNameRepete = ((List<MemberModel>)Session["fileUploader"]).Find(x => x.FileName == fileName);
+
+                    if (isFileNameRepete == null)
+
+                    {
+
+                        uploadFileModel.Add(new MemberModel { FileName = fileName, FilePath = destinationPath });
+
+                        ((List<MemberModel>)Session["fileUploader"]).Add(new MemberModel { FileName = fileName, FilePath = destinationPath });
+
+                        ViewBag.Message = "File Uploaded Successfully";
+
+                    }
+
+                    else
+
+                    {
+
+                        ViewBag.Message = "File is already exists";
+
+                    }
+
+                }
+
+                else
+
+                {
+
+                    uploadFileModel.Add(new MemberModel { FileName = fileName, FilePath = destinationPath });
+
+                    Session["fileUploader"] = uploadFileModel;
+
+                    Session["FileName"] = fileName;
+
+                    Session["FilePath"] = destinationPath;
+
+                    ViewBag.FileName = fileName;
+
+                    ViewBag.FilePath = destinationPath;
+
+                    ViewBag.Message = "File Uploaded Successfully";
+
+                }
+
+            }
+
+            return View();
+
+        }
+
+        
+
+
     }
 
-   
-    
+
+
 }
+//file.SaveAs(path);
+//sql.Close();
+
+

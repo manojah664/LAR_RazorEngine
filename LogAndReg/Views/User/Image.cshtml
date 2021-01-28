@@ -1,0 +1,36 @@
+﻿@model LogAndReg.Models.MemberModel
+@{
+    ViewBag.Title = "Image";
+}
+
+<h2>Image</h2>
+
+
+
+@using (Html.BeginForm("Image", "user", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FileName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                <input type="file" name="file" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-info" />
+            </div>
+        </div>
+
+
+    </div>
+}
+

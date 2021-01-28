@@ -20,6 +20,16 @@
           <Property Name="Countryid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cname" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="GId" />
+          </Key>
+          <Property Name="GId" Type="int" Nullable="false" />
+          <Property Name="FilePath" Type="varchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="State">
           <Key>
             <PropertyRef Name="StateId" />
@@ -27,6 +37,18 @@
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Countryid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Upload">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsModified" Type="bit" />
+          <Property Name="ModifiedName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Use">
           <Key>
@@ -50,7 +72,9 @@
         <EntityContainer Name="UserDBModelStoreContainer">
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gallery" EntityType="Self.Gallery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Upload" EntityType="Self.Upload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Use" EntityType="Self.Use" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -73,6 +97,16 @@
           <Property Name="Countryid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="GId" />
+          </Key>
+          <Property Name="GId" Type="Int32" Nullable="false" />
+          <Property Name="FilePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="State">
           <Key>
             <PropertyRef Name="StateId" />
@@ -80,6 +114,18 @@
           <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Countryid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Upload">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsModified" Type="Boolean" />
+          <Property Name="ModifiedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Use">
           <Key>
@@ -103,7 +149,9 @@
         <EntityContainer Name="UserDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Galleries" EntityType="Self.Gallery" />
           <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="Uploads" EntityType="Self.Upload" />
           <EntitySet Name="Uses" EntityType="Self.Use" />
         </EntityContainer>
       </Schema>
@@ -129,12 +177,36 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Galleries">
+            <EntityTypeMapping TypeName="UserDBModel.Gallery">
+              <MappingFragment StoreEntitySet="Gallery">
+                <ScalarProperty Name="GId" ColumnName="GId" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="UserDBModel.State">
               <MappingFragment StoreEntitySet="State">
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="Sname" ColumnName="Sname" />
                 <ScalarProperty Name="Countryid" ColumnName="Countryid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uploads">
+            <EntityTypeMapping TypeName="UserDBModel.Upload">
+              <MappingFragment StoreEntitySet="Upload">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="IsModified" ColumnName="IsModified" />
+                <ScalarProperty Name="ModifiedName" ColumnName="ModifiedName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

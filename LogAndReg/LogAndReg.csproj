@@ -295,6 +295,11 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Forgot.cs" />
+    <Compile Include="Models\Gallery.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -314,6 +319,10 @@
     <Compile Include="Models\State.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Upload.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Uploader.cs" />
     <Compile Include="Models\Use.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -338,6 +347,9 @@
     <Content Include="Views\User\Valid.cshtml" />
     <Content Include="Views\User\UserView.cshtml" />
     <Content Include="Views\User\Logic.cshtml" />
+    <Content Include="Views\User\Image.cshtml" />
+    <Content Include="Views\User\File.cshtml" />
+    <Content Include="Views\User\ContactForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -348,6 +360,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Extended\" />
+    <Folder Include="Models\Image\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

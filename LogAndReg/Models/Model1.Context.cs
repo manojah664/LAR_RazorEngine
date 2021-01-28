@@ -27,7 +27,9 @@ namespace LogAndReg.Models
     
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
+        public virtual DbSet<Gallery> Galleries { get; set; }
         public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Upload> Uploads { get; set; }
         public virtual DbSet<Use> Uses { get; set; }
     }
 }

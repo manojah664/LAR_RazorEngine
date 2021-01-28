@@ -1,0 +1,174 @@
+﻿@model LogAndReg.Models.MemberModel
+@{
+    ViewBag.Title = "File";
+}
+
+<h2>File</h2>
+
+
+
+@using (@Html.BeginForm("File", "user", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
+
+{
+    <table>
+
+        <tr>
+
+            <td>
+
+                <input type="file" name="file_Uploader" />
+
+            </td>
+
+            <td>
+                <input type="submit" id="bttn_Upload" value="Upload" />
+
+            </td>
+
+        </tr>
+
+
+
+    </table>
+    <br />
+    <br />
+    <div>
+        <input type="hidden" value="@Session["FileName"]" id="myHiddenVar" />
+        <input type="hidden" value="@Session["FilePath"]" id="myHidden" />
+    </div>
+
+    if (Session["fileUploader"] != null)
+
+    {
+
+        <div class="upload">
+
+            <div style="width: 5000px;">
+
+                <table id="uloadTable" border="1">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+                        @foreach (var item in (List<LogAndReg.Models.MemberModel>)Session["fileUploader"])
+
+                        {
+
+                            <tr id="@item.FileName">
+
+                                <td>@item.FileName</td>
+
+                                <td style="text-align: center">
+                                    <a class="btn btn-info " new { id="all" }>
+                                        click
+
+                                    </a>
+
+
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    }
+}
+
+
+
+<div class="modal hide" id="ShowModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+                <div class="modal-body">
+                    <form id="Registration">
+                        <dl>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FileName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(m => m.FileName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FilePath)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(m => m.FilePath)
+                            </dd>
+                        </dl>
+                    </form>
+
+                    <div class="form-group">
+                        <button class="btn btn-info form-control" type="submit" onclick="Submit()"><i class="glyphicon glyphicon-registration-mark"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div> Welcome: <a href="#"> @ViewBag.FileName</a><br /> </div>
+<div> Welcome: <a href="#"> @ViewBag.FilePath</a><br /> </div>
+
+@section Scripts
+{
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#all").click(function () {
+
+                var File = $('#myHiddenVar').val();
+                var Files = $('#myHidden').val();
+
+                @*var FileName = @ViewBag.FileName;
+                var FilePath = @ViewBag.FilePath;*@
+                debugger;
+                alert(File + ',                                                                     ' + Files);
+
+                    //$('#ShowModal').show();
+
+
+
+            });
+        });
+
+
+
+    </script>
+}
