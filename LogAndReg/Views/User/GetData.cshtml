@@ -1,0 +1,329 @@
+﻿@model IEnumerable<LogAndReg.Models.Upload>
+@{
+    ViewBag.Title = "GetData";
+}
+
+<h2>List Of User Data</h2>
+
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div style="display:none" id="loader">
+    <img src="~/Content/ajax_loader_blue_512.gif"  height="100" width="200"/>
+</div>
+<style>
+    /* CSS for table and input (textbox) */
+    table, td, th {
+        border: 1px solid black;
+    }
+
+
+
+    table, tr {
+        border-collapse: collapse;
+    }
+
+    input[type=text] {
+        width: 100%;
+    }
+
+    th {
+        height: 50px;
+        text-align: center;
+    }
+</style>
+
+<table>
+    <thead style="background-color:gray">
+        <tr style="width:200px">
+            <th style="width:200px">
+                Member Name
+            </th>
+            <th style="width:200px">
+                Mobile Number
+            </th>
+            <th style="width:200px">
+                Image Name
+            </th>
+            <th style="width:200px">
+                Image
+            </th>
+            <th style="width:200px">
+                Edit
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+
+
+        @foreach (var item in Model)
+        {
+            //for ID purpose writing this code
+
+            <tr class="">
+                <td style="text-align:center">
+                    @item.MemberName
+                </td>
+                <td style="text-align:center">
+                    @item.PhoneNumber
+                </td>
+                <td style="text-align:center">
+                    @item.ImageName
+                </td>
+                <td><img src="@Url.Content(item.ImagePath) " style="height:200px" /> </td>
+
+                @*<td style="text-align:center"> <a href="/user/Edit/@item.MemberId" class="btn btn-danger"> Edit</a></td>*@
+                <td style="text-align:center">
+                    @*<a href="#" id="btnEdit" class="btn btn-primary " data-id="@item.MemberId" onclick="abhi()">Edit</a>*@
+                    <a     onclick="edit(@item.MemberId)" class=" btn btn-danger">Edit</a>
+                        </td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>
+<div class="modal fade" id="myModal" role="dialog">
+
+    <div id="message3">
+        <div class="alert alert-success">
+            <span class="glyphicon glyphicon-ok"></span><strong>Success Message! Your Registration is Complete</strong>
+        </div>
+    </div>
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+
+                <h4 class="modal-title">Modal Header</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Modify Name</label>
+                    <input class="form-control" type="text" placeholder="Enter Image Name" id="inputUserName" />
+                    <h7>*.jpg/.png </h7>
+                </div>
+
+
+
+
+            </div>
+
+            <div class="modal-footer">
+
+                <input type="submit" style="float:left" id="click" class="btn btn-outline-info" />
+
+                <button type="button" style="float:right" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<br />
+<a href="/user/ContactForm" class="btn btn-danger">Cancel</a>
+
+
+
+
+@section Scripts
+{
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+
+        function edit(MemberId) {
+            debugger;
+            $("#message3").hide();
+             
+            $("#myModal").modal('show');
+
+            var v = $("#myModal")
+            debugger;
+
+
+            $(document).ready(function () {
+                $("#click").click(function () {
+                   
+                    debugger;
+                  
+                    var id = MemberId;
+                    
+                    var value = $("#inputUserName").val();
+
+                    //window.open("/user/GetPop/" ? id : id, value);
+
+                   
+                    
+                    $.ajax({
+                        type: "post",
+                        data: { imageName: value, id: id },
+                        url: "/user/GetPop",
+                        success: function (result) {
+                           
+                            $("#message3").show();
+
+                         
+                            setTimeout(function () {
+                                v.modal("hide");
+
+                            }, 2000);
+                        
+                          
+                         
+
+                          
+                            //alert(result)
+                            
+                          
+                        }
+
+
+                    });
+                });
+
+            });
+        }
+
+        //    $("#myModal").modal('show');
+        //}
+        //$(document).ready(function () {
+
+        //    $("#Updating").click(function () {
+
+        //        debugger;
+
+        //        //var v = $("#FullName").val();
+        //        //alert(v);
+        //        var value = $("#inputUserName").val();
+
+        //        $.ajax({
+        //            type: "post",
+        //            data: { imageName: value },
+        //            url: "/user/Modify",
+        //            success: function (result) {
+        //                alert(result);
+        //            }
+        //        });
+
+        //    });
+        
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="grid-table">
+    @webGrid.GetHtml(
+       tableStyle: "table table-bordered table-striped",
+       htmlAttributes: new {@id="webGrid"},
+       columns:webGrid.Columns(
+                      webGrid.Column("MemberId", "MemberId" ),
+           webGrid.Column("MemberName", "MemberName"),
+           webGrid.Column("PhoneNumber", "PhoneNumber"),
+             webGrid.Column("ImageName", "ImageName"),
+       webGrid.Column("ImagePath", "Image", format:@<text><img alt="@item.MemberName" src="@Url.Content(item.ImagePath)" style="width:200px; height:auto; padding:30px;" /></text>),
+                        webGrid.Column(header: "Modify", format: @<a class="btn btn-danger text-sm-center" id="hello" style="padding:5px;">Modify</a>)
+                        @*webGrid.Column(header:"Modify", format: @<a href="@Url.Action("GetData", "User", new { id = @item.MemberId})")</a>*@
+
+
+
+@*))
+    </div>*@
+
+
+
+
+
+
+@*@section Scripts
+    {
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script type="text/javascript">
+            //$(document).ready(function () {
+            //    $("#hello").click(function () {
+            //        debugger;
+            //        $("#myModal").modal('show');
+            //    });
+
+                $("#Updating").click(function () {
+                    debugger;
+                    var value = $("#inputUserName").val();
+
+
+                    $.ajax({
+                        type: "post",
+                        data: { imageName: value},
+                        url: "/user/Modify",
+                        success: function (result) {
+                            if (result == "Fail") {
+
+
+                            };
+                            }
+
+
+
+
+                    })
+                })
+
+
+            })
+
+
+        </script>
+
+    }
+
+
+
+    <a href="/user/Cancel" class="btn btn-info">Cancel</a>*@

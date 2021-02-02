@@ -44,14 +44,16 @@ namespace LogAndReg.Models
 
         public System.Guid ? ActivationCode { get; set; }
 
-       // public IEnumerable<SelectListItem> Countryid { get; set; }
         public int ? Countryid { get; set; }
 
         public int ? StateId { get; set; }
 
         public int ?  CityId { get; set; }
+
         public bool IsActive { get; set; }
+
         public string CountryName { get; set; }
+
         public List<SelectListItem> CountryList { get; set; }
     }
 }

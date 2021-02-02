@@ -1,0 +1,251 @@
+Microsoft Windows [Version 10.0.19041.264]
+(c) 2020 Microsoft Corporation. All rights reserved.
+
+C:\Users\manoj>mkdir Project
+
+C:\Users\manoj>cd project
+
+C:\Users\manoj\Project>mkdir src
+
+C:\Users\manoj\Project>cd src
+
+C:\Users\manoj\Project\src>dotnet new
+Usage: new [options]
+
+Options:
+  -h, --help          Displays help for this command.
+  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
+  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
+  -o, --output        Location to place the generated output.
+  -i, --install       Installs a source or a template pack.
+  -u, --uninstall     Uninstalls a source or a template pack.
+  --nuget-source      Specifies a NuGet source to use during install.
+  --type              Filters templates based on available types. Predefined values are "project", "item" or "other".
+  --force             Forces content to be generated even if it would change existing files.
+  -lang, --language   Filters templates based on language and specifies the language of the template to create.
+
+
+Templates                                         Short Name         Language          Tags                             
+----------------------------------------------------------------------------------------------------------------------------
+Console Application                               console            [C#], F#, VB      Common/Console                   
+Class library                                     classlib           [C#], F#, VB      Common/Library                   
+Unit Test Project                                 mstest             [C#], F#, VB      Test/MSTest                      
+NUnit 3 Test Project                              nunit              [C#], F#, VB      Test/NUnit                       
+NUnit 3 Test Item                                 nunit-test         [C#], F#, VB      Test/NUnit                       
+xUnit Test Project                                xunit              [C#], F#, VB      Test/xUnit                       
+Razor Page                                        page               [C#]              Web/ASP.NET                      
+MVC ViewImports                                   viewimports        [C#]              Web/ASP.NET                      
+MVC ViewStart                                     viewstart          [C#]              Web/ASP.NET                      
+ASP.NET Core Empty                                web                [C#], F#          Web/Empty                        
+ASP.NET Core Web App (Model-View-Controller)      mvc                [C#], F#          Web/MVC                          
+ASP.NET Core Web App                              razor              [C#]              Web/MVC/Razor Pages              
+ASP.NET Core with Angular                         angular            [C#]              Web/MVC/SPA                      
+ASP.NET Core with React.js                        react              [C#]              Web/MVC/SPA                      
+ASP.NET Core with React.js and Redux              reactredux         [C#]              Web/MVC/SPA                      
+Razor Class Library                               razorclasslib      [C#]              Web/Razor/Library/Razor Class Library
+ASP.NET Core Web API                              webapi             [C#], F#          Web/WebAPI                       
+global.json file                                  globaljson                           Config                           
+NuGet Config                                      nugetconfig                          Config                           
+Web Config                                        webconfig                            Config                           
+Solution File                                     sln                                  Solution                         
+
+Examples:
+    dotnet new mvc --auth Individual
+    dotnet new console
+    dotnet new --help
+
+C:\Users\manoj\Project\src>dotnet new console
+The template "Console Application" was created successfully.
+
+Processing post-creation actions...
+Running 'dotnet restore' on C:\Users\manoj\Project\src\src.csproj...
+  Restoring packages for C:\Users\manoj\Project\src\src.csproj...
+  Generating MSBuild file C:\Users\manoj\Project\src\obj\src.csproj.nuget.g.props.
+  Generating MSBuild file C:\Users\manoj\Project\src\obj\src.csproj.nuget.g.targets.
+  Restore completed in 271.79 ms for C:\Users\manoj\Project\src\src.csproj.
+
+Restore succeeded.
+
+
+C:\Users\manoj\Project\src>code .
+
+C:\Users\manoj\Project\src>dotnet run
+Hello World!
+
+C:\Users\manoj\Project\src>dotnet run
+Hello World!
+
+C:\Users\manoj\Project\src>dotnet run
+Hello World!
+
+C:\Users\manoj\Project\src>dotnet run
+
+Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at src.Student.add(Double grade) in C:\Users\manoj\Project\src\Student.cs:line 11
+   at src.Program.Main(String[] args) in C:\Users\manoj\Project\src\Program.cs:line 10
+
+C:\Users\manoj\Project\src>dotnet run
+
+Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at src.Student.add(Double grade) in C:\Users\manoj\Project\src\Student.cs:line 11
+   at src.Program.Main(String[] args) in C:\Users\manoj\Project\src\Program.cs:line 10
+
+C:\Users\manoj\Project\src>dotnet run
+
+Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object.
+   at src.Student.add(Double grade) in C:\Users\manoj\Project\src\Student.cs:line 11
+   at src.Program.Main(String[] args) in C:\Users\manoj\Project\src\Program.cs:line 10
+
+C:\Users\manoj\Project\src>dotnet run
+average grade:33.7666666666667
+average grade:54.3
+average grade:23.5
+
+C:\Users\manoj\Project\src>dotnet run
+average grade:33.4333333333333
+average grade:54.3
+average grade:22.5
+
+C:\Users\manoj\Project\src>cd ..\
+
+C:\Users\manoj\Project>mkdir test
+
+C:\Users\manoj\Project>cd test
+
+C:\Users\manoj\Project\test>dotnet new
+Usage: new [options]
+
+Options:
+  -h, --help          Displays help for this command.
+  -l, --list          Lists templates containing the specified name. If no name is specified, lists all templates.
+  -n, --name          The name for the output being created. If no name is specified, the name of the current directory is used.
+  -o, --output        Location to place the generated output.
+  -i, --install       Installs a source or a template pack.
+  -u, --uninstall     Uninstalls a source or a template pack.
+  --nuget-source      Specifies a NuGet source to use during install.
+  --type              Filters templates based on available types. Predefined values are "project", "item" or "other".
+  --force             Forces content to be generated even if it would change existing files.
+  -lang, --language   Filters templates based on language and specifies the language of the template to create.
+
+
+Templates                                         Short Name         Language          Tags                             
+----------------------------------------------------------------------------------------------------------------------------
+Console Application                               console            [C#], F#, VB      Common/Console                   
+Class library                                     classlib           [C#], F#, VB      Common/Library                   
+Unit Test Project                                 mstest             [C#], F#, VB      Test/MSTest                      
+NUnit 3 Test Project                              nunit              [C#], F#, VB      Test/NUnit                       
+NUnit 3 Test Item                                 nunit-test         [C#], F#, VB      Test/NUnit                       
+xUnit Test Project                                xunit              [C#], F#, VB      Test/xUnit                       
+Razor Page                                        page               [C#]              Web/ASP.NET                      
+MVC ViewImports                                   viewimports        [C#]              Web/ASP.NET                      
+MVC ViewStart                                     viewstart          [C#]              Web/ASP.NET                      
+ASP.NET Core Empty                                web                [C#], F#          Web/Empty                        
+ASP.NET Core Web App (Model-View-Controller)      mvc                [C#], F#          Web/MVC                          
+ASP.NET Core Web App                              razor              [C#]              Web/MVC/Razor Pages              
+ASP.NET Core with Angular                         angular            [C#]              Web/MVC/SPA                      
+ASP.NET Core with React.js                        react              [C#]              Web/MVC/SPA                      
+ASP.NET Core with React.js and Redux              reactredux         [C#]              Web/MVC/SPA                      
+Razor Class Library                               razorclasslib      [C#]              Web/Razor/Library/Razor Class Library
+ASP.NET Core Web API                              webapi             [C#], F#          Web/WebAPI                       
+global.json file                                  globaljson                           Config                           
+NuGet Config                                      nugetconfig                          Config                           
+Web Config                                        webconfig                            Config                           
+Solution File                                     sln                                  Solution                         
+
+Examples:
+    dotnet new mvc --auth Individual
+    dotnet new sln
+    dotnet new --help
+
+C:\Users\manoj\Project\test>dotnet new xunit
+The template "xUnit Test Project" was created successfully.
+
+Processing post-creation actions...
+Running 'dotnet restore' on C:\Users\manoj\Project\test\test.csproj...
+  Restoring packages for C:\Users\manoj\Project\test\test.csproj...
+  Installing Microsoft.Win32.Registry 4.0.0.
+  Installing System.Threading.ThreadPool 4.0.10.
+  Installing System.Collections.Immutable 1.2.0.
+  Installing System.Xml.XPath 4.0.1.
+  Installing System.Collections.NonGeneric 4.0.1.
+  Installing System.ComponentModel.Primitives 4.1.0.
+  Installing System.ComponentModel 4.0.1.
+  Installing System.Collections.Specialized 4.0.1.
+  Installing xunit.abstractions 2.0.2.
+  Installing System.Diagnostics.TraceSource 4.0.0.
+  Installing System.Diagnostics.Process 4.1.0.
+  Installing System.Reflection.Metadata 1.3.0.
+  Installing System.Xml.XPath.XmlDocument 4.0.1.
+  Installing System.ComponentModel.TypeConverter 4.1.0.
+  Installing System.Threading.Thread 4.0.0.
+  Installing System.Runtime.Loader 4.0.0.
+  Installing Microsoft.NET.Test.Sdk 15.9.0.
+  Installing xunit.runner.visualstudio 2.4.0.
+  Installing xunit 2.4.0.
+  Installing Microsoft.CodeCoverage 15.9.0.
+  Installing System.Diagnostics.TextWriterTraceListener 4.0.0.
+  Installing Microsoft.TestPlatform.TestHost 15.9.0.
+  Installing xunit.analyzers 0.10.0.
+  Installing System.ComponentModel.EventBasedAsync 4.0.11.
+  Installing xunit.assert 2.4.0.
+  Installing xunit.core 2.4.0.
+  Installing Microsoft.Extensions.DependencyModel 1.0.3.
+  Installing Microsoft.TestPlatform.ObjectModel 15.9.0.
+  Installing Microsoft.DotNet.PlatformAbstractions 1.0.3.
+  Installing xunit.extensibility.core 2.4.0.
+  Installing xunit.extensibility.execution 2.4.0.
+  Generating MSBuild file C:\Users\manoj\Project\test\obj\test.csproj.nuget.g.props.
+  Generating MSBuild file C:\Users\manoj\Project\test\obj\test.csproj.nuget.g.targets.
+  Restore completed in 9.75 sec for C:\Users\manoj\Project\test\test.csproj.
+
+Restore succeeded.
+
+
+C:\Users\manoj\Project\test>code .
+
+C:\Users\manoj\Project\test>dotnet add
+Required command was not provided.
+Usage: dotnet add [options] <PROJECT> [command]
+
+Arguments:
+  <PROJECT>   The project file to operate on. If a file is not specified, the command will search the current directory for one.
+
+Options:
+  -h, --help   Show command line help.
+
+Commands:
+  package <PACKAGE_NAME>     Add a NuGet package reference to the project.
+  reference <PROJECT_PATH>   Add a project-to-project reference to the project.
+
+C:\Users\manoj\Project\test>dotnet add reference C:\Users\manoj\Project\src
+Reference `..\src\src.csproj` added to the project.
+
+C:\Users\manoj\Project\test>dotnet test
+Build started, please wait...
+Build completed.
+
+Test run for C:\Users\manoj\Project\test\bin\Debug\netcoreapp2.1\test.dll(.NETCoreApp,Version=v2.1)
+Microsoft (R) Test Execution Command Line Tool Version 15.9.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+
+Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
+Test Run Successful.
+Test execution time: 1.5577 Seconds
+
+C:\Users\manoj\Project\test>dotnet test
+Build started, please wait...
+Build completed.
+
+Test run for C:\Users\manoj\Project\test\bin\Debug\netcoreapp2.1\test.dll(.NETCoreApp,Version=v2.1)
+Microsoft (R) Test Execution Command Line Tool Version 15.9.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+Starting test execution, please wait...
+
+Total tests: 1. Passed: 1. Failed: 0. Skipped: 0.
+Test Run Successful.
+Test execution time: 1.5211 Seconds
+
+C:\Users\manoj\Project\test>

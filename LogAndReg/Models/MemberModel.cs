@@ -19,6 +19,12 @@ namespace LogAndReg.Models
         [DisplayName("Upload File")]
         public string ImagePath { get; set; }
 
+        public string ImageName { get; set; }
+
+        public Nullable<bool> IsModified { get; set; }
+
+        public string ModifiedName { get; set; }
+
         public HttpPostedFileBase ImageFile { get; set; }
 
     }

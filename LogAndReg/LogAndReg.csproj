@@ -126,6 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ajax_loader_blue_512.gif" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -350,6 +351,8 @@
     <Content Include="Views\User\Image.cshtml" />
     <Content Include="Views\User\File.cshtml" />
     <Content Include="Views\User\ContactForm.cshtml" />
+    <Content Include="Views\User\GetData.cshtml" />
+    <Content Include="Views\User\GetPop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -361,6 +364,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\Extended\" />
     <Folder Include="Models\Image\" />
+    <Folder Include="MyGallery\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

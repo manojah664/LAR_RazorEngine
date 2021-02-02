@@ -143,7 +143,6 @@ namespace LogAndReg.Controllers
             UserViewModel use = new UserViewModel();
             using (UserDBEntities db = new UserDBEntities())
             {
-
                 use.CountryList = db.Countries.Select(e => new SelectListItem { Text = e.Cname.ToString(), Value = e.Countryid.ToString() }).ToList();
             }
             return View(use);
@@ -577,9 +576,13 @@ namespace LogAndReg.Controllers
 
 
             string FileName = Path.GetFileName(ImageFile.FileName);
-            string path = Path.Combine(Server.MapPath("~/Models/Extended"), FileName);
+            // string path = Path.Combine(Server.MapPath("~/Models/Extended"), FileName);
 
-            ImageFile.SaveAs(path);
+            /// string file = MimeMapping.GetMimeMapping(FileName);
+
+            string path = "~/MyGallery/"+FileName;
+            
+            ImageFile.SaveAs(Server.MapPath(path));
 
             var a = ImageFiles.Name;
             var b = ImageFiles.PhoneNumber;
@@ -593,47 +596,95 @@ namespace LogAndReg.Controllers
             u.ImagePath = c;
             u.ImageName = d;
             user.Uploads.Add(u);
+          
             user.SaveChanges();
+            Session["MemberId"] = u.MemberId;
+            ViewBag.FullName = Session["MemberId"];
 
             return RedirectToAction("ContactForm");
         }
 
-        //public ActionResult Image()
-        //{
+        public ActionResult GetData( )
 
-        //    return View();
+        {
+            UserDBEntities user = new UserDBEntities();
+            var data = user.Uploads.ToList();
+            return View(data);
+        }
+        
+        public JsonResult GetPop(int id,string ImageName)
+        {
 
-        //}
+            string result = "Fail";
+            UserDBEntities user = new UserDBEntities();
+            Upload upload = new Upload();
 
+            var model = db.Uploads.Find(id);
+            model.ModifiedName = ImageName;
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Image(HttpPostedFileBase file)
-        //{
-        //    Gallery gallery = new Gallery();
+            if (model.ModifiedName!=null)
+            {
+                model.IsModified = true;
+                upload = model;
+                user.Entry(upload).State = System.Data.Entity.EntityState.Modified;
+                user.SaveChanges();
+                result = "successfully Modified";
 
-        //    if (file != null)
-        //    {
-        //        string fileName = Path.GetFileName(file.FileName);
-        //        string path = Path.Combine(Server.MapPath("~/Models/Image"), fileName);
-
-
-        //        fileName = DateTime.Now.ToString("yyyyMMdd") + "-" + fileName.Trim() + path;
-
-        //        UserDBEntities userDB = new UserDBEntities();
-        //        userDB.Galleries.Add(new Gallery
-        //        {
-
-        //        });
-        //        userDB.SaveChanges();
-
+            }
 
 
+            //if (upload.MemberId == id)
+            //{
+            //    var data = user.Uploads.FirstOrDefault();
+            //    return View(data);
+            //}
 
-        //    }
+            return Json(result, JsonRequestBehavior.AllowGet);
+          
 
-        //    return RedirectToAction("Index");
-        //}
+        }
+
+
+        public JsonResult Modify(string imageName)
+        {
+            string result = "Fail";
+
+            UserDBEntities userDB = new UserDBEntities();
+
+            // Upload upload = new Upload();
+           Upload upload = new Upload();
+            var data = userDB.Uploads.FirstOrDefault();
+            data.ModifiedName = imageName;
+            if(data.ModifiedName!=null)
+            {
+                data.IsModified = true;
+                upload = data;
+                userDB.Entry(upload).State = System.Data.Entity.EntityState.Modified;
+                userDB.SaveChanges();
+                
+            }
+
+           
+            //userDB.SaveChanges();
+            result = "success";
+          
+            
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+
+        }
+
+          
+
+     
+
+
+
+        public ActionResult Cancel()
+        {
+            return RedirectToAction("ContactForm");
+        }
 
 
         public ActionResult File()
@@ -722,7 +773,10 @@ namespace LogAndReg.Controllers
 
         }
 
-        
+
+       
+
+     
 
 
     }
@@ -730,7 +784,41 @@ namespace LogAndReg.Controllers
 
 
 }
-//file.SaveAs(path);
-//sql.Close();
+//public ActionResult Image()
+//{
+
+//    return View();
+
+//}
+
+
+//[HttpPost]
+//[ValidateAntiForgeryToken]
+//public ActionResult Image(HttpPostedFileBase file)
+//{
+//    Gallery gallery = new Gallery();
+
+//    if (file != null)
+//    {
+//        string fileName = Path.GetFileName(file.FileName);
+//        string path = Path.Combine(Server.MapPath("~/Models/Image"), fileName);
+
+
+//        fileName = DateTime.Now.ToString("yyyyMMdd") + "-" + fileName.Trim() + path;
+
+//        UserDBEntities userDB = new UserDBEntities();
+//        userDB.Galleries.Add(new Gallery
+//        {
+
+//        });
+//        userDB.SaveChanges();
+
+
+
+
+//    }
+
+//    return RedirectToAction("Index");
+//}
 
 
