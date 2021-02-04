@@ -10,7 +10,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 <div style="display:none" id="loader">
-    <img src="~/Content/ajax_loader_blue_512.gif"  height="100" width="200"/>
+    <img src="~/Content/ajax_loader_blue_512.gif"  height="50" width="50"/>
 </div>
 <style>
     /* CSS for table and input (textbox) */
@@ -78,7 +78,7 @@
                 <td style="text-align:center">
                     @*<a href="#" id="btnEdit" class="btn btn-primary " data-id="@item.MemberId" onclick="abhi()">Edit</a>*@
                     <a     onclick="edit(@item.MemberId)" class=" btn btn-danger">Edit</a>
-                        </td>
+                        </td>   
             </tr>
 
         }
@@ -155,7 +155,7 @@
 
             $(document).ready(function () {
                 $("#click").click(function () {
-                   
+                    $("#loader").fadeIn();
                     debugger;
                   
                     var id = MemberId;
@@ -172,13 +172,14 @@
                         url: "/user/GetPop",
                         success: function (result) {
                            
-                            $("#message3").show();
+                          
 
-                         
+                            $("#loader").fadeOut(3000);
+                           
                             setTimeout(function () {
                                 v.modal("hide");
 
-                            }, 2000);
+                            }, 3000);
                         
                           
                          
